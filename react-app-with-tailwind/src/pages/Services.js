@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { car_database, repairs_database } from '../components/Car_Database';
 import Header from '../components/Header'
 import Filter from '../components/Filter'
 import car1 from '../car1.jpg'
@@ -10,7 +11,7 @@ import RentalItem from '../components/RentalItem'
 import SalesItem from '../components/SalesItem'
 import SalesItemInfo from '../components/SalesItemInfo'
 
-const {car_database} = require('./Car_Database.js')
+// const {car_database} = require('./Car_Database.js')
 
 function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems}) {
 	
@@ -54,69 +55,46 @@ function Rentals({data, filter, handleFilterChange, handleSubmit}) {
 	)
 }
 
-function Repairs() {
+function Repairs({repairs_database}) {
+	const [repairService, setRepairService] = useState("");
+	const [data, setData] = useState()
+
+	function handleShowService(param){
+		setData(n => setData(param))
+		setRepairService("showService");
+	}
 	return (
+		<>
+		{ !(repairService === "showService") ? 
 		<div className='p-2'>
-			<div className='border border-black p-2 mb-5'>
-				<div className='float-right'>
-					<div className='h-12 w-12 bg-red-500'></div>
-				</div>
-				<h3 className='font-bold text-black text-xl'>Belts & Hoses</h3>
-				<p>I am a student of the University of Nigeria, located in Nigeria, Africa. I major in Engineering; Agricultural and Environmental Enginnering A.K.A. Agric Engineering/AEE, which is under the Faculty of Technology that has a total of eight (8) departments under it; AEE inclusive </p>
-				<div className='p-1'>
-					<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>Request Quote</a> <a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>View Services</a>
-					<p><a className='bg-blue-900 text-white font-bold text-center py-2 block mt-3'>Schedule Service</a></p>
-				</div>
-			</div>
-			<div className='border border-black p-2'>
-				<div className='float-right'>
-					<div className='h-12 w-12 bg-red-500'></div>
-				</div>
-				<h3 className='font-bold text-black text-xl'>Belts & Hoses</h3>
-				<p>I am a student of the University of Nigeria, located in Nigeria, Africa. I major in Engineering; Agricultural and Environmental Enginnering A.K.A. Agric Engineering/AEE, which is under the Faculty of Technology that has a total of eight (8) departments under it; AEE inclusive </p>
-				<div className='p-1'>
-					<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>Request Quote</a> <a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>View Services</a>
-					<p><a className='bg-blue-900 text-white font-bold text-center py-2 block mt-3'>Schedule Service</a></p>
-				</div>
-			</div>
-			<div className='border border-black p-2'>
-				<div className='float-right'>
-					<div className='h-12 w-12 bg-red-500'></div>
-				</div>
-				<h3 className='font-bold text-black text-xl'>Belts & Hoses</h3>
-				<p>I am a student of the University of Nigeria, located in Nigeria, Africa. I major in Engineering; Agricultural and Environmental Enginnering A.K.A. Agric Engineering/AEE, which is under the Faculty of Technology that has a total of eight (8) departments under it; AEE inclusive </p>
-				<div className='p-1'>
-					<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>Request Quote</a> <a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>View Services</a>
-					<p><a className='bg-blue-900 text-white font-bold text-center py-2 block mt-3'>Schedule Service</a></p>
-				</div>
-			</div>
-			<div className='border border-black p-2'>
-				<div className='float-right'>
-					<div className='h-12 w-12 bg-red-500'></div>
-				</div>
-				<h3 className='font-bold text-black text-xl'>Belts & Hoses</h3>
-				<p>I am a student of the University of Nigeria, located in Nigeria, Africa. I major in Engineering; Agricultural and Environmental Enginnering A.K.A. Agric Engineering/AEE, which is under the Faculty of Technology that has a total of eight (8) departments under it; AEE inclusive </p>
-				<div className='p-1'>
-					<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>Request Quote</a> <a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>View Services</a>
-					<p><a className='bg-blue-900 text-white font-bold text-center py-2 block mt-3'>Schedule Service</a></p>
-				</div>
-			</div>
-			<div className='border border-black p-2'>
-				<div className='float-right'>
-					<div className='h-12 w-12 bg-red-500'></div>
-				</div>
-				<h3 className='font-bold text-black text-xl'>Belts & Hoses</h3>
-				<p>I am a student of the University of Nigeria, located in Nigeria, Africa. I major in Engineering; Agricultural and Environmental Enginnering A.K.A. Agric Engineering/AEE, which is under the Faculty of Technology that has a total of eight (8) departments under it; AEE inclusive </p>
-				<div className='p-1'>
-					<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>Request Quote</a> <a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>View Services</a>
-					<p><a className='bg-blue-900 text-white font-bold text-center py-2 block mt-3'>Schedule Service</a></p>
-				</div>
-			</div>
+			{
+				repairs_database.map(items => {
+					return (
+						<div className='border border-black p-2 mb-5'>
+							<div className='float-right'>
+								<div className='h-12 w-12 bg-red-500'></div>
+							</div>
+							<h3 className='font-bold text-black text-xl'>{items.title}</h3>
+							<p>{items.content}</p>
+							<div className='p-1'>
+								<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>Request Quote</a>
+								<a className='bg-stone-800 text-white font-bold px-5 py-1 m-1'>View Services</a>
+								<p><button onClick={() => handleShowService(items)} className='bg-blue-900 w-full text-white font-bold text-center py-2 block mt-3'>Schedule Service</button></p>
+							</div>
+						</div>
+					)
+				})
+			}
+		</div> : 
+		<div>
+			gg
+			{data ? "y" : "n"}
 		</div>
+		}</>
 	)
 }
 
-function Content({stat, data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems}) {
+function Content({stat, data, repairs_database, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems}) {
 	if (stat === "sales") {
 		return < Sales 
 				 data={data} 
@@ -133,7 +111,7 @@ function Content({stat, data, filter, handleFilterChange, handleSubmit, salesInf
 		return <Rentals data={data} filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} />
 	}
 	else if (stat === "repairs") {
-		return <Repairs />
+		return <Repairs repairs_database={repairs_database} />
 	}
 
 }
@@ -141,8 +119,10 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 	const [stat, setStat] = useState("sales");
 	const [filter, setFilter] = useState({});
 	const [data, setData] = useState(car_database);
+	const [ repairsData, setRepairsData ] = useState(repairs_database)
 	const [change, setChange ] = useState("yes");
 	const [salesInfo, setSalesInfo] = useState(null);
+	
 	useEffect(()=> {
 		// alert("Reload")
 		let user = localStorage.getItem("user");
@@ -154,33 +134,33 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 
 	let url = window.location.href;
 	if (url.includes("sales") && change === "yes") {
-		setChange(n=> setChange("no"))
-		setStat("sales")
+		setChange(n=> setChange("no"));
+		setStat("sales");
 	}
 	if (url.includes("rentals") && change === "yes") {
-		setChange(n=> setChange("no"))
-		setStat("rentals")
+		setChange(n=> setChange("no"));
+		setStat("rentals");
 	}
 	if (url.includes("repairs") && change === "yes") {
-		setChange(n=> setChange("no"))
-		setStat("repairs")
+		setChange(n=> setChange("no"));
+		setStat("repairs");
 	}
 
-	let style = "border-4 border-purple-400 bg-gradient-to-tr from-red-300 to-white text-violet-900 hover:bg-purple-500 hover:border-purple-900"
-	let secStyle = "bg-violet-900"
+	let style = "border-4 border-purple-400 bg-gradient-to-tr from-red-300 to-white text-violet-900 hover:bg-purple-500 hover:border-purple-900";
+	let secStyle = "bg-violet-900";
 	let sales, rentals, repairs;
 	if (stat === "sales") {
-		sales =  style
-		rentals = secStyle
-		repairs = secStyle
+		sales =  style;
+		rentals = secStyle;
+		repairs = secStyle;
 	}else if (stat === "rentals") {
-		rentals =  style
-		sales = secStyle
-		repairs = secStyle
+		rentals =  style;
+		sales = secStyle;
+		repairs = secStyle;
 	}else {
-		repairs = style
-		sales = secStyle
-		rentals = secStyle
+		repairs = style;
+		sales = secStyle;
+		rentals = secStyle;
 	}
 
 	function handleFilterChange(e) {
@@ -217,15 +197,6 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 			setData(newData)
 		}
 		
-		// let details = {
-		// 	"Year": filter.Year,
-		// 	"Make": filter.Make,
-		// 	"Model": filter.Model,
-		// 	"Category": filter.Category,
-		// 	"Mileage": filter.Mileage,
-		// 	"Color": filter.Color,
-		// 	"Price": filter.Price
-		// }
 	}
 	return (
 	<>
@@ -239,7 +210,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 				<p><a onClick={() => {setStat("repairs")}} className={`${repairs} hover:bg-violet-900 p-2`}>Repairs</a></p>
 			</div>
 			<div>
-				<Content stat={stat} data={data} filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} salesInfo={salesInfo} setSalesInfo={setSalesInfo} setCartItems={setCartItems} cartItems={cartItems} />
+				<Content stat={stat} data={data} repairs_database={repairs_database} filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} salesInfo={salesInfo} setSalesInfo={setSalesInfo} setCartItems={setCartItems} cartItems={cartItems} />
 			</div>
 		</div>
 	</>

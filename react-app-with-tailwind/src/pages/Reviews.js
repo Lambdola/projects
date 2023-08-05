@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
-import cat from '../cat.jpg'
-// import AccountBoxIcon from '@mui/icons-material/AccountBox'
-
+import cat from '../cat.jpg';
 
 function Reviews({isSignIn, setIsSignIn}) {
     useEffect(()=> {
