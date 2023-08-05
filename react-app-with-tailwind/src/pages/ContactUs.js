@@ -16,7 +16,10 @@ function ContactUs({isSignIn, setIsSignIn, cartItems}) {
         <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} />
         <h1 className='font-bold text-xl text-center'>CONTACT US</h1>
         <div className='border-2 border-black m-2'></div>
-        <p>{JSON.stringify(cartItems)}</p>
+        <div className='max-w-full bg-red-200'>
+          <p>{JSON.stringify(cartItems)}</p>
+        </div>
+        
     </>
   )
 }

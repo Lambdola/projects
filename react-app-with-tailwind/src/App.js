@@ -23,9 +23,20 @@ import { useEffect, useState } from 'react';
 
 
 export default function App() {
+  let user = localStorage.getItem("user");
+  let cart = localStorage.getItem(user.email);
+  // cart = JSON.parse(cart)
   const [isSignIn, setIsSignIn] = useState(false);
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState([ ])
 
+
+  useEffect(()=>{
+    // alert("app")
+    let user = localStorage.getItem("user");
+    if(user.loggedIn === "true"){
+        setIsSignIn(true);
+    }
+  },[]);
   // useEffect(()=>{
   //   alert("Reload")
   //   let user = localStorage.getItem("user");

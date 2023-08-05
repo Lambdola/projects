@@ -1,4 +1,4 @@
-var car_database = [
+export var car_database = [
     {
       "objectId": "ZRgPP9dBMm",
       "url": "https://images.dealer.com/ddc/vehicles/2023/Audi/Q3/SUV/trim_40_Komfort_032f53/color/Navarra%20Blue%20Metallic-2D2D-23,32,52-640-en_CA.jpg",
@@ -465,5 +465,73 @@ var car_database = [
   ];
 
 
-
-  module.exports = { car_database }
+export var repairs_database = [
+  {
+    "title": "Axle & Driveshaft Repair",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Belts & Hoses",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Brake Repair",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Cooling System Repairs",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Electrical and Electronic Systems",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Engine Diagnostics and Performance",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Exhaust System Repair",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Four Wheel Repair",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Lube, Oil & Filter Change",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Preventive Maintenance",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Roadside Assistance",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Starting, Charging & Batteries",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Steering and Suspension System",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Tire Pressure Monitoring System",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Tire Services",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Transmission Repair",
+    "content": "Nothing Yet"
+  },
+  {
+    "title": "Vehicle Inspection",
+    "content": "Nothing Yet"
+  }
+]

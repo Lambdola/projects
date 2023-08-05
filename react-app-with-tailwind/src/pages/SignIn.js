@@ -6,10 +6,6 @@ let hasAccount = "no";
 
 function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChange, status, enable, submitCreateAccount}) {
   let navigate = useNavigate();
-  // let enableCreateButton = "yes";
-  // if (submitCreateAccount >= 0) {
-  //   (submitCreateAccount === 11 ? enableCreateButton = "yes" : enableCreateButton = "no")
-  // }
   
   if (redirect === "yes") {
     setTimeout(() => navigate("/"),2000)
@@ -18,12 +14,8 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
     <>
       <div className='space-x-4 mb-4'>
         <span className='font-bold text-slate-400'>Already have an account ?</span>
-        <NavLink name="logIn" onClick={handleLogInDisplay} className='font-bold text-blue-700'>Log In</NavLink>
+        <NavLink name="logIn" onClick={handleLogInDisplay} className='font-bold text-blue-600 hover:text-blue-800 active:text-green-600'>Log In</NavLink>
       </div>
-
-      {/* <div className={` text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 `} >
-        <p>Please, Fill All The Fields. Thank You</p>
-      </div> */}
 
       <form onSubmit={handleSubmit} className='space-y-5 mb-5'>
         <p></p>
@@ -56,7 +48,6 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
         <div>
           <p>Picture</p>
           <input required name="picture" type="file" onChange={handleDetailsChange} />
-          {/* <input type="text" value={details.picture} className='border border-slate-400 rounded py-1 px-3 w-full' /> */}
         </div>
         <div>
            <p>Phone Number</p>
@@ -64,10 +55,9 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
         </div>
         <div>
            <p>Address</p>
-          {/* <input type="text" placeholder="Address" className='border border-slate-400 rounded py-1 px-3' /> */}
+          
           <textarea required name="address" value={details.address} onChange={handleDetailsChange} placeholder='Address' autoComplete="off" className='border border-slate-400 rounded py-1 px-3 w-full h-20' />
         </div>
-        {/* C:\Users\User.DESKTOP-8DCLUDU\Pictures\ */}
         <div>
            <p>City</p>
           <input required name="city" type="text" value={details.city} onChange={handleDetailsChange} placeholder="City" autoComplete="off" className='border border-slate-400 rounded py-1 px-3 w-full' />
@@ -78,12 +68,6 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
         </div>
         <div className='text-center'>
           <button type="submit" className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600`}>Create Account</button>
-          {/* {
-            enableCreateButton === "yes" ?
-            <button type="submit" className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 ${enableCreateButton}`}>Create Account</button>
-            :
-            <button type="submit" disabled className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 disabled:bg-purple-300 ${enableCreateButton}`}>Create Account</button>
-          } */}
           </div>
       </form>
     </>
@@ -95,19 +79,10 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
   const navigate = useNavigate();
   const [refresh, setRefresh] = useState("")
   let show = "hidden";
-  // hasAccount === "yes" ? show = "visible" : show = "hidden"
 
   function handleLogIn(e) {
-    // setDetails({...details,[e.target.name]: e.target.value })
     setUserLogInDetails({...userLogInDetails, [e.target.name]: e.target.value})
   }
-
-  // let user = localStorage.getItem("user")
-  // user = JSON.parse(user)
-  // user = user.email
-  // user = {user.email}
-  // console.log(user)
-
 
 
   if (hasAccount === "yes") {
@@ -120,7 +95,7 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
     <>
       <div className=' mb-4 flex flex-wrap gap-2'>
         <span className='font-bold text-slate-400'>Don't have an account ? </span>
-        <NavLink name="createAccount" onClick={handleLogInDisplay} className='font-bold text-blue-700'>Create An Account</NavLink>
+        <NavLink name="createAccount" onClick={handleLogInDisplay} className='font-bold text-blue-700 hover:text-blue-800 active:text-green-600'>Create An Account</NavLink>
       </div>
       <div className={`${show} text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 `} >
         <p>Incorrect Email and/or Password</p>
@@ -201,30 +176,12 @@ function SignIn({setIsSignIn}) {
   function handleDetailsChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-    // let track = [];
-    // let count = 0;
-
-    // for (let key in details){
-    //   if (details[key].length === 0) {
-    //     alert(key)
-    //     setEnable(n => setEnable("no"))
-    //   }
-    // }
-    // setEnable(n => setEnable("yes"))
-
-    // if (track.includes(name) && value.length > 0){
-    //   count++;
-    // }else{
-    //   track.push(name)
-    // }
-    // alert(track)
 
     if (name === "password" || name === "confirmPassword") {
       value = hash(value);
     }
     if (name === "picture") {
       alert(value)
-      // C:\fakepath\car_logo.jpg
       let path = "C:\\Users\\User.DESKTOP-8DCLUDU\\Pictures\\"
       value = path + value.replace("C:\\fakepath\\","")
       alert(value)
