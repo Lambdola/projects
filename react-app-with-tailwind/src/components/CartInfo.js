@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { red } from '@mui/material/colors';
+import RemovePrompt from './RemovePrompt';
+import Remove from './Remove';
 
 
 function CartInfo({salesInfo, image, setCartItems, cartItems}) {
@@ -58,27 +60,7 @@ function CartInfo({salesInfo, image, setCartItems, cartItems}) {
 
   return (
     <>
-    {
-        removePrompt === "show" &&
-    <>
-    <div className='fixed top-0 bg-slate-900 opacity-50 h-full w-full'></div>
-    <div className='fixed bg-white w-[21.5rem] h-40 top-1/3 ml-2 rounded-xl p-3 shadow-lg'>
-        <div className=''>
-            <div className='float-right hover:bg-gray-700 rounded-full'>
-                <CloseIcon onClick={()=> showPrompt("hide")} sx={{fontSize:30}} />
-            </div>
-            <p className='font-bold text-lg'>Remove from cart</p>
-            <p className='text-sm font-medium mt-3'>Do you really want to remove this item from cart?</p>
-            <div className='bg-purple-700 text-center p-3 mt-5 shadow-lg hover:bg-purple-900 active:bg-green-600'>
-                <div className='float-left'>
-                    <DeleteForeverOutlinedIcon sx={{color:'white', fontSize: 30}} />
-                </div>
-                <div>
-                    <button onClick={handleRemoveItem} className='text-white font-semibold'>REMOVE ITEM</button>
-                </div>
-            </div>
-        </div>
-    </div></>  }
+    { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} salesInfo={salesInfo} /> }
     
     {/* <p>Yes</p> */}
     { salesInfo.Count > 0 && 
@@ -87,7 +69,7 @@ function CartInfo({salesInfo, image, setCartItems, cartItems}) {
         <div className='p-2 text-center space-y-2'>
             {/* <p>{JSON.stringify(cartItems)}</p> */}
             <h2 className='font-bold text-purple-800 text-lg'>{salesInfo.Year + " " + salesInfo.Make + " " + salesInfo.Model + " " + salesInfo.Category}</h2>
-            <p className='border-4 border-purple-900 rounded-xl font-bold text-black p-2 w-16 mx-auto'>{salesInfo.Tag}</p>
+            <p className='border-4 border-purple-900 rounded-xl font-bold text-black p-2 w-16 text-center mx-auto'>{salesInfo.Tag}</p>
             { salesInfo.Transmission && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '>Transmission: {salesInfo.Transmission}</p>}
             { salesInfo.Color && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '>Color : {salesInfo.Color}</p>}
             { salesInfo.Mileage && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '>Mileage : {salesInfo.Mileage} </p>}
@@ -108,10 +90,7 @@ function CartInfo({salesInfo, image, setCartItems, cartItems}) {
             {
                 salesInfo.Count > 0 && 
                 <>
-                    <div onClick={() => showPrompt("show")} className='float-left align-middle mt-2 pr-1  hover:bg-red-200'>
-                        <DeleteForeverOutlinedIcon sx={{color: red[500], fontSize: 35 }} />
-                        <span className='text-red-500 font-bold'>REMOVE</span>
-                    </div>
+                    <Remove showPrompt={showPrompt} />
                     <div className=' flex justify-end mr-2'>
                         <div className=' w-10 flex justify-center'>
                             <button onClick={()=>addToCart("minus")} className='text-white w-full font-bold bg-red-600 p-3 text-lg rounded-xl active:bg-red-400'>-</button>
