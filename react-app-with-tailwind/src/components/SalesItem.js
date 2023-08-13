@@ -4,7 +4,6 @@ import SalesItemInfo from './SalesItemInfo';
 
 
 function SalesItem({item, image, setSalesInfo}) {
-    // let navigate = useNavigate();
     
     return (
         <div onClick={()=>setSalesInfo(item)} className='bg-red-200 w-80 mb-5 border-2 border-purple-700 rounded-lg overflow-auto active:bg-blue-500'>

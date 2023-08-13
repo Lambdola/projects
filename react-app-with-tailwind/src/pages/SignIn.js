@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { NavLink, redirect, useNavigate } from 'react-router-dom';
 
@@ -86,7 +86,7 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
 
 
   if (hasAccount === "yes") {
-    setTimeout(() => navigate("/"),2000)
+    setTimeout(() => navigate("/"),2000);
   }else if (hasAccount === "no"){
     show = "visible"
   }
@@ -100,8 +100,6 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
       <div className={`${show} text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 `} >
         <p>Incorrect Email and/or Password</p>
       </div>
-      {/* <p>elijahdimeji549@gmail.com</p> */}
-      {/* <p>{hasAccount}</p> */}
       <div>
         <form onSubmit={handleLogInSubmit} className='space-y-5'>
           <div>
@@ -115,14 +113,13 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
           <div className='text-center'>
             <button type="submit" className='text-white font-bold bg-purple-700 w-32 p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600'>Log In</button>
           </div>
-          
         </form>
       </div>
     </>
   )
 }
 
-function SignIn({setIsSignIn}) {
+function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
   const [details, setDetails] = useState({
     "email": "",
     "confirmEmail": "",
@@ -136,17 +133,18 @@ function SignIn({setIsSignIn}) {
     "city": "",
     "country": "",
     "loggedIn": ""
-  })
+  });
   const [status, setStatus] = useState({
     "emailMatch": true,
     "passwordMatch": true
-  })
+  });
 
   const [newMember, setNewMember] = useState(true);
-  const [hasAccount, setHasAccount] = useState("")
-  const [enable, setEnable] = useState("no")
-  const [submitCreateAccount, setSubmitCreateAccount] = useState(0)
+  const [hasAccount, setHasAccount] = useState("");
+  const [enable, setEnable] = useState("no");
+  const [submitCreateAccount, setSubmitCreateAccount] = useState(0);
   let navigate = useNavigate();
+  useEffect(()=> window.scrollTo(0, 0), []);
 
 
   function handleLogInDisplay(e) {
@@ -211,15 +209,15 @@ function SignIn({setIsSignIn}) {
   
   function handleLogInSubmit(e) {
     e.preventDefault();
-    let user = localStorage.getItem("user")
-    user = JSON.parse(user)
-    // alert([userLogInDetails.emai, userLogInDetails.password])
+    let user = localStorage.getItem("user");
+    user = JSON.parse(user);
     let updateDetails;
     if ((userLogInDetails.emai === user.email) && (hash(userLogInDetails.password) === user.password)) {
       updateDetails = {...user, "loggedIn": "true"}
       localStorage.setItem("user", JSON.stringify(updateDetails))
       setHasAccount(n => setHasAccount("yes"))
       setIsSignIn(true);
+      setSignInWelcome("show");
     } else {
       setHasAccount("no")
     }
@@ -227,7 +225,7 @@ function SignIn({setIsSignIn}) {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <h1 className='font-bold text-xl text-center'>SIGN IN</h1>
       <div className='border-2 border-black m-2'></div>
       <div className=' px-3'>
@@ -248,7 +246,8 @@ function SignIn({setIsSignIn}) {
             userLogInDetails={userLogInDetails}
             setUserLogInDetails={setUserLogInDetails}
             hasAccount={hasAccount}
-            setHasAccount={setHasAccount}
+            setHasAccount={setHasAccount} 
+            setSignInWelcome={setSignInWelcome}
           />
         }
       </div>
@@ -257,4 +256,4 @@ function SignIn({setIsSignIn}) {
   )
 }
 
-export default SignIn
+export default SignIn;

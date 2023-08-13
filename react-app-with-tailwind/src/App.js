@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
 // import logo from './logo.svg';
 import './App.css';
 // import cat from './cat.jpg'
@@ -25,47 +26,32 @@ import { useEffect, useState } from 'react';
 export default function App() {
   let user = localStorage.getItem("user");
   let cart = localStorage.getItem(user.email);
-  // cart = JSON.parse(cart)
   const [isSignIn, setIsSignIn] = useState(false);
-  const [cartItems, setCartItems] = useState([ ])
+  const [cartItems, setCartItems] = useState([]);
+  const [count, setCount] = useState(0);
+  const [signInWelcome, setSignInWelcome] = useState("")
 
 
   useEffect(()=>{
-    // alert("app")
     let user = localStorage.getItem("user");
     if(user.loggedIn === "true"){
         setIsSignIn(true);
     }
   },[]);
-  // useEffect(()=>{
-  //   alert("Reload")
-  //   let user = localStorage.getItem("user");
-  //   let cart, email;
-  //   user = JSON.parse(user)
-  //   if(user){
-  //     email = user.email;
-  //     cart = localStorage.getItem(email);
-  //     cart = JSON.parse(cart);
-  //     setCartItems(n => setCartItems(cart));
-  //     setIsSignIn(true);
-  //     // setCartItems(cart);
-
-  //   }
-  // },[])
+  let cartCount = cartItems.length;
 
   return (
     <>
-      {/* <Home /> */}
-      {/* <Services /> */}
+      <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartCount={cartCount} />
       <Routes>
-        <Route path="/" element={<Home isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
-        <Route path="/services" element={<Services isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} />} />
+        <Route path="/" element={<Home isSignIn={isSignIn} setIsSignIn={setIsSignIn} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} cartCount={cartCount} />} />
+        <Route path="/services" element={<Services isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} />} />
         <Route path="/blog" element={<Blog isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
-        <Route path="/sign-in" element={<SignIn setIsSignIn={setIsSignIn} />} />
+        <Route path="/sign-in" element={<SignIn setIsSignIn={setIsSignIn} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} />} />
         <Route path="/reviews" element={<Reviews isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
         <Route path="/about-us" element={<AboutUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
         <Route path="/contact-us" element={<ContactUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} />} />
-        <Route path="/cart" element={<Cart isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems}  />} />
+        <Route path="/cart" element={<Cart isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} count={count} setCount={setCount} cartCount={cartCount}  />} />
       </Routes>
     </>
   );

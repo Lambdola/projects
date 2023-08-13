@@ -2,7 +2,7 @@ import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
-function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo}) {
+function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo, repairItem, setRepairItem, tag}) {
 
     function addToCart(param) {
         let user = localStorage.getItem("user");
@@ -10,7 +10,6 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo}) {
         let cartItem;
         let newCartItems;
         for (let items of cartItems) {
-            // alert(items)
             if (items.objectId === salesInfo.objectId){
                 if (param === "add"){
                     items = {...items, "Count":items.Count++};
@@ -27,7 +26,6 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo}) {
     }
 
     function showPrompt(param) {
-        // alert("yo")
         if (param === "show"){
             setRemovePrompt("show");
         }
@@ -39,12 +37,27 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo}) {
     function handleRemoveItem(){
         let user = localStorage.getItem("user");
         user = JSON.parse(user);
-        for (let items of cartItems) {
-            // alert(items)
-            if (items.objectId === salesInfo.objectId){
-                while (salesInfo.Count !== 0 ){
-                    addToCart("minus");
+        if (repairItem) {
+            let newCartItems, index;
+            for (let items of cartItems) {
+                if (items === repairItem) {
+                    index = cartItems.indexOf(items);
+                    newCartItems = cartItems.filter((cnt)=> cnt !== items)
+                    localStorage.setItem(`${user.email}`, JSON.stringify(newCartItems));
+                    setRepairItem({})
+                    setRemovePrompt("hide");
+                    setCartItems(newCartItems);
+                    console.log(newCartItems);
+                    return;
                 }
+            }
+        }
+        for (let items of cartItems) {
+            let newCartItems;
+            if (items === salesInfo){
+                newCartItems = cartItems.filter((cnt)=> cnt !== items);
+                localStorage.setItem(`${user.email}`, JSON.stringify(newCartItems));
+                setCartItems(newCartItems);
             }
         }
         setRemovePrompt("hide");

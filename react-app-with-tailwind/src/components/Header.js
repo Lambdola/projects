@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-// import cat from '../cat.jpg'
-import logo from '../car_logo2.png'
-import profilePic from '../car_logo.jpg'
+import logo from '../car_logo2.png';
+import profilePic from '../car_logo.jpg';
+import CartContent from './CartContent';
+import BackToTop from './BackToTop';
 
-export default function Header({isSignIn, setIsSignIn}) {
+export default function Header({isSignIn, setIsSignIn, cartCount}) {
 
     let navigate = useNavigate();
 
@@ -13,9 +14,7 @@ export default function Header({isSignIn, setIsSignIn}) {
     user = JSON.parse(user);
 
     let url = window.location.href;
-    // url = url.replace("http://localhost:3000/", "")
     let style = "bg-purple-600 text-purple hover:bg-purple-900 text-white";
-    // let reviews =  "bg-purple-600 text-purple hover:bg-purple-900 text-white";
 
     let cart, services, reviews, blog, contactUs;
     if (url.includes("cart")) {
@@ -59,20 +58,20 @@ export default function Header({isSignIn, setIsSignIn}) {
     function handleLogOut() {
         let updateDetails = {...user, "loggedIn": "false"}
         localStorage.setItem("user", JSON.stringify(updateDetails))
-        // alert("Yo")
         setIsSignIn(n => setIsSignIn(false))
         setTimeout(()=>navigate("/"),1000)
     }
 
 
     return (
-        <header className=" top-0 w-auto p-2 h-16 bg-gray-900 m-1 flex align-middle mb-3 md:p-3 md:h-28">
-            {/* <p>{url}</p> */}
-            <div className=" block">
-                <NavLink to="/" ><img className="h-12 w-12 md:h-20 md:w-32 xl:h-20 xl:w-32" src={logo} alt="Logo." /></NavLink>
+        <header className=" top-0 w-auto p-2 h-24 bg-gray-900 m-1 flex align-middle mb-3 md:p-3 md:h-28">
+            {/* <p className='text-red-600'>Count: {cartCount}</p> */}
+            {cartCount > 0 && <CartContent cartCount={cartCount} />}
+            {/* <BackToTop /> */}
+            <div className="inline-block py-2 ">
+                <NavLink to="/" ><img className="h-16 w-16 md:h-20 md:w-32 xl:h-20 xl:w-32" src={logo} alt="Logo." /></NavLink>
             </div>
-            {/* <p>{user.picture}</p> */}
-            <div className=' absolute right-4 top-5 md:top-9 xl:right-7'>
+            <div className=' absolute right-4 top-10 md:top-9 xl:right-7'>
                 { isSignIn ? 
                     (<ul className='flex gap-4 text-xl text-black xsm:max-sm:hidden xl:gap-10'>
                         <li>
@@ -109,7 +108,14 @@ export default function Header({isSignIn, setIsSignIn}) {
                             </div>
                             {user && <p className='text-[.7rem] font-bold font-serif mt-1'>{user.lastName + " " + user.firstName}</p>}
                         </li>
-                        <li><NavLink to="/cart" className={`${cart}  font-bold block rounded-xl p-2 text-center text-sm mt-4`}>Cart</NavLink></li>
+                        <div className='relative'>
+                            <li className=''><NavLink to="/cart" className={`${cart}  font-bold block rounded-xl p-2 text-center text-sm mt-4`}>Cart</NavLink></li>
+                            {cartCount > 0 && <div className='bg-red-600 text-white font-bold font-roboto border-2 box-content border-black absolute -top-2 -right-1 rounded-full w-6 h-6 flex text-center '>
+                                <p className='w-full h-full'>{cartCount}</p>
+                            </div>}
+                            
+                        </div>
+                        
                         <li><NavLink to="/services" className={`${services} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-4`}>Services</NavLink></li>
                         <li><NavLink to="/blog" className={`${blog} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-4`}>Blog</NavLink></li>
                         <li><NavLink to="/reviews" className={`${reviews} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-4`}>Reviews</NavLink></li>

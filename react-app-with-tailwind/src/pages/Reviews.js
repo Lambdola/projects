@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import cat from '../cat.jpg';
+import BackToTop from '../components/BackToTop';
 
 function Reviews({isSignIn, setIsSignIn}) {
     useEffect(()=> {
-        // alert("Reload")
+        window.scrollTo(0, 0);
         let user = localStorage.getItem("user");
         user = JSON.parse(user)
         if(user.loggedIn === "true"){
@@ -13,12 +14,12 @@ function Reviews({isSignIn, setIsSignIn}) {
       },[])
   return (
     <>
-        <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} />
+        {/* <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} /> */}
+        <BackToTop />
         <h1 className='font-bold text-xl text-center'>REVIEWS</h1>
         <div className='border-2 border-black m-2'></div>
         <div className='p-2 m-2 space-y-10'>
             <div className='text-center border-2 border-purple-400 pb-4 mb-4 bg-slate-300 shadow-xl rounded-lg'>
-                {/* <div className='h-12 w-12 rounded-full bg-slate-600'></div> */}
                 <div className='bg-white mb-3 p-2'>
                      <img src={cat} className='h-12 w-12 rounded-full mx-auto' />
                     <h2 className='font-bold text-slate-700'>John Doe</h2>
@@ -31,7 +32,6 @@ function Reviews({isSignIn, setIsSignIn}) {
                 </p>
             </div>
             <div className='text-center border-2 border-purple-400 pb-4 mb-4 bg-slate-300 shadow-xl rounded-lg'>
-                {/* <div className='h-12 w-12 rounded-full bg-slate-600'></div> */}
                 <div className='bg-white mb-3 p-2'>
                      <img src={cat} className='h-12 w-12 rounded-full mx-auto' />
                     <h2 className='font-bold text-slate-700'>John Doe</h2>
@@ -44,7 +44,6 @@ function Reviews({isSignIn, setIsSignIn}) {
                 </p>
             </div>
             <div className='text-center border-2 border-purple-400 pb-4 mb-4 bg-slate-300 shadow-xl rounded-lg'>
-                {/* <div className='h-12 w-12 rounded-full bg-slate-600'></div> */}
                 <div className='bg-white mb-3 p-2'>
                      <img src={cat} className='h-12 w-12 rounded-full mx-auto' />
                     <h2 className='font-bold text-slate-700'>John Doe</h2>
@@ -57,7 +56,6 @@ function Reviews({isSignIn, setIsSignIn}) {
                 </p>
             </div>
             <div className='text-center border-2 border-purple-400 pb-4 mb-4 bg-slate-300 shadow-xl rounded-lg'>
-                {/* <div className='h-12 w-12 rounded-full bg-slate-600'></div> */}
                 <div className='bg-white mb-3 p-2'>
                      <img src={cat} className='h-12 w-12 rounded-full mx-auto' />
                     <h2 className='font-bold text-slate-700'>John Doe</h2>
@@ -74,4 +72,4 @@ function Reviews({isSignIn, setIsSignIn}) {
   )
 }
 
-export default Reviews
+export default Reviews;

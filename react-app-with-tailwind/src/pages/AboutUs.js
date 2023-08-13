@@ -3,7 +3,7 @@ import Header from '../components/Header'
 
 function AboutUs({isSignIn, setIsSignIn}) {
   useEffect(()=> {
-    // alert("Reload")
+    window.scrollTo(0, 0);
     let user = localStorage.getItem("user");
     user = JSON.parse(user)
     if(user.loggedIn === "true"){

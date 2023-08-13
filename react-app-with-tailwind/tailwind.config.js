@@ -6,6 +6,10 @@ module.exports = {
     extend: {
       screens: {
         'xsm': '300px',
+      }, 
+      fontFamily: {
+        "roboto": ['Roboto Condensed', 'sans-serif'],
+        "poppins": ['Poppins', 'sans-serif']
       }
     },
   },
