@@ -1,23 +1,29 @@
-import React , {useEffect} from 'react'
-import Header from '../components/Header'
+import React , {useEffect} from 'react';
 
-function AboutUs({isSignIn, setIsSignIn}) {
+
+function AboutUs({ isSignIn, setIsSignIn}) {
   useEffect(()=> {
     window.scrollTo(0, 0);
     let user = localStorage.getItem("user");
-    user = JSON.parse(user)
-    if(user.loggedIn === "true"){
+    let test;
+    try {
+      user = JSON.parse(user);
+      test = user.loggedIn;
+    } catch (error) {
+      user = { "loggedIn": "false" };
+    }
+    if (user.loggedIn === "true"){
       setIsSignIn(true);
     }
-  },[])
+  },[]);
 
   return (
    <>
-	<Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} />
-	<h1 className='font-bold text-xl text-center'>ABOUT US</h1>
+    <h1 className='font-bold text-xl text-center'>ABOUT US</h1>
     <div className='border-2 border-black m-2'></div>
+    
    </>
-  )
+  );
 }
 
-export default AboutUs
+export default AboutUs;

@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { car_database, repairs_database } from '../components/Car_Database';
-import Header from '../components/Header'
-import Filter from '../components/Filter'
-import car1 from '../car1.jpg';
-
-import LuggageIcon from '@mui/icons-material/Luggage'
-import NoLuggageIcon from '@mui/icons-material/NoLuggage'
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
+import Filter from '../components/Filter';
+import car1 from '../images/car1.jpg';
 import Search from '@mui/icons-material/Search';
-import RentalItem from '../components/RentalItem'
+import RentalItem from '../components/RentalItem';
 import SalesItem from '../components/SalesItem';
-import SalesItemInfo from '../components/SalesItemInfo'
+import SalesItemInfo from '../components/SalesItemInfo';
 import { purple } from '@mui/material/colors';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import BackToTop from '../components/BackToTop';
 
 
-function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, setCount}) {
+function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, setCount, rentalData}) {
 	
 	return (
 		<> 
@@ -27,7 +22,7 @@ function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSa
 							<Filter filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} />
 						</div>
 						<div className='flex flex-wrap text-center justify-center space-y-5 mt-10'>
-							<ul>
+							<ul className='bg-slate-100 md:flex md:flex-row md:justify-between md:flex-wrap md:w-full md:p-3'>
 								{ data === "No Results Found" ? <h2 className='font-bold text-3xl'>No Results Found</h2> : (data.map((item) => {
 									return (
 										<SalesItem key={item.objectId} item={item} image={car1} setSalesInfo={setSalesInfo} />
@@ -36,13 +31,17 @@ function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSa
 								}
 							</ul>
 						</div>
-					</> : <SalesItemInfo key={salesInfo.objectId} salesInfo={salesInfo} car1={car1} setCartItems={setCartItems} cartItems={cartItems} tag="Sales" setCount={setCount} />	
+					</> : 
+					<div className='md:p-2'>
+						<SalesItemInfo key={salesInfo.objectId} salesInfo={salesInfo} car1={car1} setCartItems={setCartItems} cartItems={cartItems} tag="Sales" />	
+					</div>
+					
 			}
 		</>
 	)
 }
 
-function Rentals({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems}) {
+function Rentals({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, rentalData, setRentalData}) {
 	return (
 		<>
 			{
@@ -52,16 +51,16 @@ function Rentals({data, filter, handleFilterChange, handleSubmit, salesInfo, set
 							<Filter filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} />
 						</div>
 						<div className='flex flex-wrap text-center justify-center space-y-5 mt-10'>
-							<ul>
+							<ul className='bg-slate-100 md:flex md:flex-row md:justify-between md:flex-wrap md:w-full md:p-3'>
 								{ data === "No Results Found" ? <h2 className='font-bold text-3xl'>No Results Found</h2> : (data.map((item) => {
 									return (
-										<li key={item.objectId}><RentalItem item={item} image={car1} setSalesInfo={setSalesInfo} /></li>
+										<RentalItem key={item.objectId} item={item} image={car1} setSalesInfo={setSalesInfo} />
 									)
 								}))
 								}
 							</ul>
 						</div>
-					</> : <SalesItemInfo key={salesInfo.objectId} salesInfo={salesInfo} car1={car1} setCartItems={setCartItems} cartItems={cartItems} tag="Rentals" />	
+					</> : <SalesItemInfo key={salesInfo.objectId} salesInfo={salesInfo} car1={car1} setCartItems={setCartItems} cartItems={cartItems} tag="Rentals" rentalData={rentalData} setRentalData={setRentalData} />	
 			}
 		</>
 	)
@@ -102,9 +101,9 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 
 	function handleCheckBoxToggle(param) {
 		if (param === "home") {
-			setCheckBox(true)
+			setCheckBox(true);
 		} else {
-			setCheckBox(false)
+			setCheckBox(false);
 		}
 	}
 
@@ -121,31 +120,34 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 	function handleDetailsChange(e) {
 		let name = e.target.name;
 		let value = e.target.value;
-		setDetails({...details,[name]: value })
+		setDetails({...details,[name]: value });
 	}
+
 
 	function handleSearchSubmit(e) {
 		e.preventDefault();
 		setKeyWords({...keyWords, "word": keyWords.search});
-		setCopyRepairsDatabase(repairs_database.filter((items)=> items.title.toLowerCase().includes(keyWords.search.toLowerCase())));
-		
+		setCopyRepairsDatabase( repairs_database.filter(
+				(items) => items.title.toLowerCase().includes(keyWords.search.toLowerCase())
+			)
+		);
 	}
 
 	return (
-		<div className='max-w-sm'>
-			<form onSubmit={handleSearchSubmit} className='flex justify-between'>
-				<input type="text" value={keyWords.search} onChange={(e)=> setKeyWords({...keyWords, "search": e.target.value})} placeholder='Search for a repair service' className='w-72 border border-purple-700 rounded-lg p-2 m-2' />
+		<div className=''>
+			<form onSubmit={handleSearchSubmit} className='flex justify-between md:text-2xl'>
+				<input type="text" value={keyWords.search} onChange={(e)=> setKeyWords({...keyWords, "search": e.target.value})} placeholder='Search for a repair service' className='w-72 border border-purple-700 rounded-lg p-2 m-2 md:w-full md:h-14' />
 				<button type="submit" className='pt-1 mr-2 hover:bg-purple-200 hover:rounded-lg active:bg-green-600'>
 					<Search sx={{fontSize: 40, color: purple[800]}} />
 				</button>
 			</form>
 		
 		{ !(repairService === "showService") ? 
-		<div className='p-2'>
+		<div className='p-2 md:text-2xl'>
 			{ copyRepairsDatabase.length > 0 ? 
 				copyRepairsDatabase.map(items => {
 					return (
-						<div className='border border-black p-2 mb-5'>
+						<div className='border border-black p-2 mb-5 '>
 							<div className='float-right'>
 								<div className='h-12 w-12 bg-red-500'></div>
 							</div>
@@ -161,66 +163,65 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 			}
 		</div> : 
 		<>
-		<div className='w-80 mx-auto text-center text-sm font-medium mb-3 bg-violet-100 p-2 rounded-xl text-purple-950'>
+		<div className='w-80 mx-auto text-center text-sm font-medium mb-3 bg-violet-100 p-2 rounded-xl text-purple-950 md:text-xl md:w-2/3'>
 			<p>Please note that the date and time you requested may not be available. We will contact you to confirm your actual appointment details. </p>
 		</div>
-		<div className='bg-violet-900 w-80 mx-auto py-5 px-5 space-y-3 rounded-xl'>
-			<h2 className='text-white font-bold text-xl text-center pb-1 border-b-4 border-white'>{data.title}</h2>
+		<div className='bg-violet-900 w-80 mx-auto py-5 px-5 space-y-3 rounded-xl md:w-2/3 md:text-xl md:space-y-5'>
+			<h2 className='text-white font-bold text-xl text-center pb-1 border-b-4 border-white md:text-2xl'>{data.title}</h2>
 			<div className='flex justify-center gap-7'>
 				<div className='flex flex-wrap align-middle gap-1'>
-					<input name="location" value="home" id="home" onChange={() => handleCheckBoxToggle("home")} checked={checkBox} type="checkbox" className='h-5 w-5 mt-1 accent-orange-300' />
-					<label htmlFor='location' className={`font-medium text-sm mt-[.2rem] ${checkBox ? "text-orange-300" : "text-white"}`} >Home Service</label>
+					<input name="location" value="home" id="home" onChange={() => handleCheckBoxToggle("home")} checked={checkBox} type="checkbox" className='h-5 w-5 mt-1 accent-orange-300 md:mt-2' />
+					<label htmlFor='location' className={`font-medium text-sm mt-[.2rem] ${checkBox ? "text-orange-300" : "text-white"} md:text-xl`} >Home Service</label>
 				</div>
 				<div className='flex flex-wrap align-middle gap-1'>
-					<input name="location"  value="work" onChange={() => handleCheckBoxToggle("work")} checked={!checkBox} type="checkbox" className='h-5 w-5 mt-1 accent-orange-300 ' />
-					<label htmlFor='location' className={`font-medium text-sm mt-[.2rem] ${!checkBox ? "text-orange-300" : "text-white"}`} >Workshop Service</label>
+					<input name="location"  value="work" onChange={() => handleCheckBoxToggle("work")} checked={!checkBox} type="checkbox" className='h-5 w-5 mt-1 accent-orange-300 md:mt-2 ' />
+					<label htmlFor='location' className={`font-medium text-sm mt-[.2rem] ${!checkBox ? "text-orange-300" : "text-white"} md:text-xl`} >Workshop Service</label>
 				</div>
-				
 			</div>
 			<form onSubmit={handleFormSubmit} className='space-y-3'>
 				<div className=''>
 					<label htmlFor='name' className='block text-white'>Name</label>
-					<input name="name" placeholder='Your Full Name' value={details.name} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="name" placeholder='Your Full Name' value={details.name} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='phone' className='block text-white'>Phone</label>
-					<input name="phone" placeholder='Phone Number' value={details.phone} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="phone" placeholder='Phone Number' value={details.phone} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='email' className='block text-white'>Email</label>
-					<input name="email" placeholder='E-mail' value={details.email} onChange={handleDetailsChange} type="email" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="email" placeholder='E-mail' value={details.email} onChange={handleDetailsChange} type="email" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='year' className='block text-white'>Year</label>
-					<input name="year" placeholder='Car Year e.g 2020' value={details.year} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="year" placeholder='Car Year e.g 2020' value={details.year} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='make' className='block text-white'>Make </label>
-					<input name="make" placeholder='Car Make e.g. Audi' value={details.make} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="make" placeholder='Car Make e.g. Audi' value={details.make} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='model' className='block text-white'>Model </label>
-					<input name="model" placeholder='Car Model e.g. Q3' value={details.model} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="model" placeholder='Car Model e.g. Q3' value={details.model} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='category' className='block text-white'>Category</label>
-					<input name="category" placeholder='Car Category e.g. SUV' value={details.category} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="category" placeholder='Car Category e.g. SUV' value={details.category} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='date' className='block text-white'>Choose a Date</label>
-					<input name="date"  value={details.date} onChange={handleDetailsChange} type="date" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="date"  value={details.date} onChange={handleDetailsChange} type="date" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='time' className='block text-white'>Choose a Time</label>
-					<input name="time" value={details.time} onChange={handleDetailsChange} type="time" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg' />
+					<input name="time" value={details.time} onChange={handleDetailsChange} type="time" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				{ checkBox &&
 				<div className=''>
 					<label htmlFor='address' className='block text-white'>Address</label>
-					<textarea name="address" placeholder='Home Address' value={details.address} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg'></textarea>
+					<textarea name="address" placeholder='Home Address' value={details.address} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14'></textarea>
 				</div> }
 				<div className='text-center'>
-					<button type="submit" className='text-white font-bold bg-purple-700 w-52 p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600'>Book Service</button>
+					<button type="submit" className='text-white font-bold bg-purple-700 w-52 p-3 text-lg md:text-xl md:h-14 rounded-xl hover:bg-purple-900 active:bg-green-600'>Book Service</button>
 				</div>
 			</form>
 		</div></>
@@ -229,8 +230,8 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 	)
 }
 
-function Content({stat, data, repairs_database, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems,  repairService, setRepairService, setCount}) {
-	useEffect(()=>{window.scrollTo(0, 0);},[])
+function Content({stat, data, repairs_database, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems,  repairService, setRepairService, setCount, rentalData, setRentalData }) {
+	useEffect(()=>{window.scrollTo(0, 0);},[]);
 	if (stat === "sales") {
 		return < Sales 
 				 data={data} 
@@ -253,7 +254,9 @@ function Content({stat, data, repairs_database, filter, handleFilterChange, hand
 				salesInfo={salesInfo} 
 				setSalesInfo={setSalesInfo} 
 				setCartItems={setCartItems} 
-				cartItems={cartItems} 
+				cartItems={cartItems}
+				rentalData={rentalData} 
+				setRentalData={setRentalData}
 			/>
 	}
 	else if (stat === "repairs") {
@@ -267,11 +270,10 @@ function Content({stat, data, repairs_database, filter, handleFilterChange, hand
 	}
 
 }
-export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems, setCount}) {
+export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems, setCount, rentalData, setRentalData}) {
 	const [stat, setStat] = useState("sales");
 	const [filter, setFilter] = useState({});
 	const [data, setData] = useState(car_database);
-	const [ repairsData, setRepairsData ] = useState(repairs_database)
 	const [change, setChange ] = useState("yes");
 	const [salesInfo, setSalesInfo] = useState(null);
 	const [repairService, setRepairService] = useState("");
@@ -279,11 +281,19 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 	useEffect(()=> {
 		window.scrollTo(0, 0);
 		let user = localStorage.getItem("user");
-		user = JSON.parse(user)
-		if(user.loggedIn === "true"){
+        let test;
+        try {
+        user = JSON.parse(user);
+        test = user.loggedIn;
+        } catch (error) {
+        user = { "loggedIn": "false" };
+        }
+    
+        if (user.loggedIn === "true"){
 		  setIsSignIn(true);
 		}
-	  },[])
+	  },[]);
+
 
 	let url = window.location.href;
 	if (url.includes("sales") && change === "yes") {
@@ -320,44 +330,44 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		
 		let inputName = e.target.name;
 		let inputValue = e.target.value;
-		let newData;
 		
-		setFilter({...filter, [inputName] : inputValue})
+		setFilter({...filter, [inputName] : inputValue});
 	}
 
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		let filterKey = Object.keys(filter)
-		let newData = [...car_database]
-		let freshData = []
+		let newData = [...car_database];
+		let freshData = [];
 	
 		for (let key in filter) {
 			if (filter[key].length > 0) {
 				for (let item of newData) {
-					if ((filter[key].length > 0) && (item[key].toString() === filter[key])) { freshData.push(item) }
+					if ((filter[key].length > 0) && (item[key].toString() === filter[key])) { freshData.push(item) };
 				}
 				newData = [...freshData];
 				freshData = [];
 			}
 		}
 		if(newData.length === 0) {
-			setData("No Results Found")
+			setData("No Results Found");
 		} else {
-			setData(newData)
+			setData(newData);
 		}
 		
 	}
 	return (
-	<>
-		{/* <Header isSignIn={isSignIn} /> */}
-		<h1 className='text-center text-xl font-bold'>SERVICES</h1>
-		<div className='border-2 border-black m-2' ></div>
-		<div>
-			<div className='flex justify-evenly font-bold text-lg p-2 text-white mt-5 mb-5'>
-				<p><a onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("sales")}} className={`${sales} hover:bg-violet-900 p-2`}>Sales</a></p>
-				<p><a onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("rentals")}} className={`${rentals} hover:bg-violet-900 p-2`}>Rentals</a></p>
-				<p><a onClick={() => { setRepairService(n => setRepairService("")); setStat("repairs")}} className={`${repairs} hover:bg-violet-900 p-2`}>Repairs</a></p>
+	<div className='page-transition'>
+		<div className='md:relative md:top-3'>
+			<h1 className='text-center text-xl font-bold md:text-3xl'>SERVICES</h1>
+			<div className='border-2 border-black m-2' ></div>
+		</div>
+		
+		<div className='md:mt-8'>
+			<div className='flex justify-evenly font-bold text-lg md:text-xl md:h-14 p-2 text-white mt-5 mb-5'>
+				<p><NavLink to="#" onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("sales")}} className={`${sales} hover:bg-violet-900 p-2`}>Sales</NavLink></p>
+				<p><NavLink to="#" onClick={() => { setSalesInfo(n => setSalesInfo(null)); setStat("rentals")}} className={`${rentals} hover:bg-violet-900 p-2`}>Rentals</NavLink></p>
+				<p><NavLink to="#" onClick={() => { setRepairService(n => setRepairService("")); setStat("repairs")}} className={`${repairs} hover:bg-violet-900 p-2`}>Repairs</NavLink></p>
 			</div>
 			<div>
 				<Content 
@@ -374,10 +384,12 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 					repairService={repairService} 
 					setRepairService={setRepairService} 
 					setCount={setCount} 
+					rentalData={rentalData} 
+					setRentalData={setRentalData}
 				/>
 			</div>
 		</div>
 		<BackToTop />
-	</>
+	</div>
 	)
 }

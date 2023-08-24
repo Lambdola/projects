@@ -1,40 +1,87 @@
 import React, {useEffect, useState} from 'react';
-import Header from '../components/Header';
 import CartInfo from '../components/CartInfo';
 import Remove from '../components/Remove';
 import RemovePrompt from '../components/RemovePrompt';
+import BackToTop from '../components/BackToTop';
+import { useNavigate } from 'react-router-dom';
+import { toMoneyString } from '../toMoneyString';
 
-function Cart({isSignIn, setIsSignIn, setCartItems, cartItems, count, setCount, cartCount}) {
+function Cart({ isSignIn ,setIsSignIn, setCartItems, cartItems, count, setCount, cartCount,totalPrice, setTotalPrice}) {
     const [ removePrompt, setRemovePrompt ] = useState("hide");
     const [repairItem, setRepairItem]= useState({});
+    let navigate = useNavigate();
+   
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+        // alert("Cart")
+        let user = localStorage.getItem("user");
+        let test;
+        try {
+        user = JSON.parse(user);
+        test = user.loggedIn;
+        } catch (error) {
+        user = { "loggedIn": "false" };
+        }
+    
+        if (user.loggedIn === "true"){
+            // alert("CCart")
+            setIsSignIn(true);
+            // let user = localStorage.getItem("user");
+            let cart = localStorage.getItem(user.email);
+            try {
+                cart = JSON.parse(cart);
+                // cart = cart.filter((cnt) => cnt.Count !== 0);
+                if (cart.length > 0){
+                    setCartItems(n => setCartItems(cart))
+                    localStorage.setItem(`${user.email}`, JSON.stringify(cart));
+                } else {
+                    setCartItems(n => setCartItems([]));
+                    localStorage.setItem(`${user.email}`, JSON.stringify(cart));
+                }
+            } catch (error) {
+                setCartItems(n => setCartItems([]));
+            }
+        }
+    },[]);
 
-
+    
     function showPrompt(param, items) {
         setRepairItem(n => items);
         if (param === "show"){
             setRemovePrompt("show");
         }
         if (param === "hide") {
-            setRemovePrompt("hide")
+            setRemovePrompt("hide");
         }
     }
 
-    useEffect(()=>{
-        let user = localStorage.getItem("user");
-        user = JSON.parse(user);
-        if(user.loggedIn === "true"){
-            setIsSignIn(n => true);
-            let cart = localStorage.getItem(user.email);
-            try {
-                cart = JSON.parse(cart);
-                if (cart.length > 0){
-                    setCartItems(cart);
+    function priceFormat(param) {
+        param = (param.replace("$", "")).replace(",", "");
+        return parseInt(param);
+    }
+
+    let copyTotalPrice = 0;
+    try {
+        if (cartItems.length > 0) {
+            for(let items of cartItems) {
+                if (items.objectId) {
+                    copyTotalPrice += priceFormat(items.Price) * parseInt(items.Count);
+                } else{
+                    if (items.location === "Home Service"){
+                        copyTotalPrice += priceFormat(items.Price.home);
+                    } else{
+                        copyTotalPrice += priceFormat(items.Price.workshop);
+                    }
                 }
-            } catch (error) {
-                setCartItems([])
             }
+            setTotalPrice(copyTotalPrice);
+        } else {
+            setTotalPrice(0);
         }
-    },[]);
+    } catch {
+        setTotalPrice(0);
+    }
+    
 
     let flag;
     try {
@@ -43,23 +90,32 @@ function Cart({isSignIn, setIsSignIn, setCartItems, cartItems, count, setCount, 
         }
     } catch (error) {
         flag = "no";
+        setTotalPrice(0);
     }
 
+    let copyCart = cartItems.filter((items) => (items.Count > 0 || items.tag === "Repairs"));
     return (
-    <>
+    <div className='page-transition'>
         { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} repairItem={repairItem} setRepairItem={setRepairItem} tag="Repairs" /> }
-        {/* <Header isSignIn={isSignIn} /> */}
-        <h1 className='font-bold text-xl text-center'>CART</h1>
-        <div className='border-2 border-black m-2'></div>
-        <ul>
+        <BackToTop />
+        <div className='md:relative md:top-3'>
+            <h1 className='font-bold text-xl text-center md:text-3xl'>CART</h1>
+            <div className='border-2 border-black m-2'></div>
+        </div>
+        
+        <ul className='pb-20 md:mt-6'>
             { flag === "yes" && cartItems.length > 0  ? 
-                cartItems.map( items => {
+                copyCart.map( items => {
                     if (items.objectId) {
-                        return <CartInfo key={items.objectId} salesInfo={items} image={items.url} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} cartCount={cartCount} />
+                        return (
+                            <div key={items.objectId + items.tag} className='md:p-2'>
+                                <CartInfo key={items.objectId} salesInfo={items} image={items.url} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} priceFormat={priceFormat} /> 
+                            </div>
+                            );
                     } else if (items.title) {
                         return (
                             <>
-                                <div className=' w-80 h-[29.5rem] mx-auto mb-10 px-3 py-2 pb-3 rounded-lg border-4 border-purple-900 space-y-2'>
+                                <div className=' w-80 h-[32rem] mx-auto mb-10 px-3 py-2 pb-3 rounded-lg border-4 border-purple-900 space-y-2'>
                                     <p className='text-purple-900 text-md text-center font-roboto font-bold -mb-2'>{items.title}</p>
                                     <div className='border-2 border-violet-700 flex'></div>
                                     <p className='font-bold text-purple-800 text-lg text-center'>{items.year + " " + items.make + " " + items.model + " " + items.category}</p>
@@ -71,20 +127,28 @@ function Cart({isSignIn, setIsSignIn, setCartItems, cartItems, count, setCount, 
                                     <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>E-mail:</span> {items.email}</p>
                                     <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Location:</span> {items.location}</p>
                                     {items.address && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Address:</span> {items.address}</p>}
+                                    {(items.Price && (items.location === "Home Service")) && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Price</span> {items.Price.home}</p> }
+                                    {(items.Price && (items.location === "Workshop Service")) && <p className='p-1 bg-violet-400 rounded text-white font-bold font-mono '><span className='text-purple-900'>Price</span> {items.Price.workshop}</p> }
                                     <div className='text-center flex w-40 mx-auto justify-center'>
                                         <Remove showPrompt={showPrompt} items={items} />
                                     </div>
-                                   
                                 </div>
                             </>
-                        )
+                        );
                     }
-                } ) : 
+                    return 0;
+                } )
+                 : 
                 <h2 className='text-black text-4xl font-bold text-center font-roboto'>No Items Yet</h2>
             }
+            <div className='mt-5 mb-20'>
+                {totalPrice > 0 && <p className='w-80 mx-auto bg-green-100 rounded p-1 text-center text-green-600 font-medium text-lg md:text-3xl'>Total: ${toMoneyString(totalPrice.toString())}</p>}
+                {totalPrice > 0 && <div className=' text-center w-full p-2' ><button onClick={()=> navigate("/make-payment")} className='w-80 h-12 rounded bg-slate-300 text-purple-900 font-bold font-roboto m-2 hover:bg-purple-500 hover:text-white md:text-2xl md:h-20'>MAKE PAYMENT</button></div>}
+            </div>
+            
         </ul>
-    </>
-    )
+    </div>
+    );
 }
 
 export default Cart;

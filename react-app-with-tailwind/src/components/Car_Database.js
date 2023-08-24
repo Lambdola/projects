@@ -8,11 +8,11 @@ export var car_database = [
       "Category": "SUV",
       "Mileage": "254190",
       "Color": "Blue",
-      "Price": "# 7,500,000",
+      "Price": "$7,500",
       "Seats": "4",
-      "Bags": {"Large": "3", "Small": "1"},
+      "Bags": {"Large": "3", "Small": "3"},
       "Transmission": "Automatic",
-      "Recommendation": "Recommended for transporting people",
+      "Recommendation": "Recommended for transporting people and/or heavy luggages",
       "createdAt": "2020-01-27T20:44:17.665Z",
       "updatedAt": "2020-01-27T20:44:17.665Z"
     },
@@ -23,6 +23,13 @@ export var car_database = [
       "Make": "Chevrolet",
       "Model": "Malibu",
       "Category": "Sedan",
+      "Mileage": "254190",
+      "Color": "Red",
+      "Price": "$5,500",
+      "Seats": "4",
+      "Bags": {"Large": "2", "Small": "1"},
+      "Transmission": "Automatic",
+      "Recommendation": "Recommended for transporting people",
       "createdAt": "2020-01-27T20:44:17.665Z",
       "updatedAt": "2020-01-27T20:44:17.665Z"
     },
@@ -33,6 +40,13 @@ export var car_database = [
       "Make": "Cadillac",
       "Model": "Escalade ESV",
       "Category": "SUV",
+      "Mileage": "254190",
+      "Color": "Gray",
+      "Price": "$20,750",
+      "Seats": "6",
+      "Bags": {"Large": "5", "Small": "3"},
+      "Transmission": "Automatic",
+      "Recommendation": "Recommended for transporting people and/or heavy luggages",
       "createdAt": "2020-01-27T20:44:17.665Z",
       "updatedAt": "2020-01-27T20:44:17.665Z"
     },
@@ -43,6 +57,13 @@ export var car_database = [
       "Make": "Chevrolet",
       "Model": "Corvette",
       "Category": "Coupe, Convertible",
+      "Mileage": "254190",
+      "Color": "White",
+      "Price": "$6,100",
+      "Seats": "2",
+      "Bags": {"Large": "1", "Small": "1"},
+      "Transmission": "Automatic",
+      "Recommendation": "Recommended for transporting people",
       "createdAt": "2020-01-27T20:44:17.665Z",
       "updatedAt": "2020-01-27T20:44:17.665Z"
     },
@@ -53,6 +74,13 @@ export var car_database = [
       "Make": "Acura",
       "Model": "RLX",
       "Category": "Sedan",
+      "Mileage": "254190",
+      "Color": "Black",
+      "Price": "$4,450",
+      "Seats": "4",
+      "Bags": {"Large": "2", "Small": "2"},
+      "Transmission": "Automatic",
+      "Recommendation": "Recommended for transporting people",
       "createdAt": "2020-01-27T20:44:17.665Z",
       "updatedAt": "2020-01-27T20:44:17.665Z"
     },
@@ -468,7 +496,9 @@ export var car_database = [
 export var repairs_database = [
   {
     "title": "Axle & Driveshaft Repair",
-    "content": "Nothing Yet"
+    "content": "Nothing Yet",
+    "Price": {"home": "$15", "workshop": "$10"}
+
   },
   {
     "title": "Belts & Hoses",

@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         "roboto": ['Roboto Condensed', 'sans-serif'],
         "poppins": ['Poppins', 'sans-serif']
+      },
+      colors: {
+        'arrow': 'transparent transparent red transparent',
       }
     },
   },

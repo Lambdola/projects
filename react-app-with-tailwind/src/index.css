@@ -22,17 +22,29 @@ code {
     monospace;
 }
 
-@layer utilities {
-  @variants responsive {
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
+.page-transition{
+  animation: load 1s ease-in;
+  /* transition: all 2s ease-in ; */
+}
+@keyframes load {
+  0% {
+    position: relative;
+    left:30%;
+    opacity: 0;
+  }
+  100%{
+    position: relative;
+    left:0%;
+    opacity: 1;
   }
 }
+
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+  }

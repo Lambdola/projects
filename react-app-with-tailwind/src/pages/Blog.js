@@ -1,20 +1,25 @@
 import React, {useEffect} from 'react';
-import Header from '../components/Header';
 import BackToTop from '../components/BackToTop';
 
-function Blog({isSignIn, setIsSignIn}) {
+function Blog({ isSignIn ,setIsSignIn}) {
     useEffect(()=> {
         window.scrollTo(0, 0);
         let user = localStorage.getItem("user");
-        user = JSON.parse(user)
-        if(user.loggedIn === "true"){
+        let test;
+        try {
+          user = JSON.parse(user);
+          test = user.loggedIn;
+        } catch (error) {
+          user = { "loggedIn": "false" };
+        }
+       
+        if (user.loggedIn === "true"){
           setIsSignIn(true);
         }
-      },[])
+      },[]);
 
     return (
-    <>
-        {/* <Header isSignIn={isSignIn} /> */}
+    <div className='page-transition'>
         <BackToTop />
         <h1 className='font-bold text-xl text-center'>BLOG POSTS</h1>
         <div className='border-2 border-black m-2'></div>
@@ -35,8 +40,8 @@ function Blog({isSignIn, setIsSignIn}) {
                 <p className='float-right'>- Written By John Doe</p>
             </div>
         </div>
-    </>
-    )
+    </div>
+    );
     }
 
-export default Blog
+export default Blog;

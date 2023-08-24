@@ -9,10 +9,10 @@ import { purple } from '@mui/material/colors';
 
 export default function QuickFind() {
     return (
-        <div className='w-full bg-gray-900 xl:h-[22.5rem] pt-4 pb-10 rounded-xl hover:bg-violet-20 xl:hover:bg-violet-300 mx-auto text-center mb-4 md:w-3/4 md:h-80  '>
-            <p className='text-gray-200 font-roboto font-bold text-2xl  xl:text-4xl xl:mt-5 mb-7 md:text-4xl md:mt-1'>Quick Find</p>
-            <div className=' md:space-y-14 xl:space-y-15 xl:mt-10'>
-                <div className='bg-green-500 rounded-t-3xl px-5 py-6 pb-32 -mb-20 text-left space-y-5'>
+        <div className='w-full bg-gray-900 pt-4 pb-10 rounded-xl mx-auto text-center mb-4  '>
+            <p className='text-gray-200 font-roboto font-bold text-2xl mb-7 xl:text-4sxl '>Quick Find</p>
+            <div className='xl:flex'>
+                <div className='bg-green-500 rounded-t-3xl px-5 py-6 pb-32 -mb-20 text-left space-y-5 xl:w-1/3 '>
                     <div className='flex flex-wrap flex-col'>
                         <div className="-mb-5 ml-6">
                             <PaidOutlinedIcon sx={{fontSize:50, color: purple[800]}} />
@@ -30,9 +30,9 @@ export default function QuickFind() {
                             /blob/HEAD/docs/rules/anchor-is-valid.md
                         </p>
                     </div>
-                    <p><NavLink to="/services#sales" className="bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">SALES</NavLink></p>
+                    <p><NavLink to="/services#sales" className="block text-center text-lg font-roboto bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">SALES</NavLink></p>
                 </div>
-                <div className='bg-pink-400 rounded-t-3xl px-5 py-6 pb-32 -mb-20 text-left space-y-5'>
+                <div className='bg-pink-400 rounded-t-3xl px-5 py-6 pb-32 -mb-20 text-left space-y-5 xl:w-1/3'>
                     <div className='flex flex-wrap flex-col '>
                         <div className="-mb-5 ml-6">
                             <KeyOutlinedIcon sx={{fontSize:50, color: purple[800]}} />
@@ -50,9 +50,9 @@ export default function QuickFind() {
                             /blob/HEAD/docs/rules/anchor-is-valid.md
                         </p>
                     </div>
-                    <p><NavLink to="/services#rentals" className="bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">RENTALS</NavLink></p>
+                    <p><NavLink to="/services#rentals" className="block text-center text-lg font-roboto bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">RENTALS</NavLink></p>
                 </div>
-                <div className='bg-yellow-400 rounded-t-3xl rounded-b-xl px-5 py-6 text-left space-y-5'>
+                <div className='bg-yellow-400 rounded-t-3xl rounded-b-xl px-5 py-6 text-left space-y-5 xl:w-1/3 xl:-mb-20'>
                     <div className='flex flex-wrap flex-col '>
                         <div className="-mb-5 ml-6">
                             <HandymanOutlinedIcon sx={{fontSize:50, color: purple[800]}} />
@@ -70,7 +70,7 @@ export default function QuickFind() {
                             /blob/HEAD/docs/rules/anchor-is-valid.md
                         </p>
                     </div>
-                    <p><NavLink to="/services#repairs" className="bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">REPAIRS</NavLink></p>
+                    <p><NavLink to="/services#repairs" className="block text-center text-lg font-roboto bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">REPAIRS</NavLink></p>
                 </div>
 
             </div>
