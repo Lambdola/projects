@@ -14,6 +14,7 @@ import MakePayment from './pages/MakePayment';
 
 export default function AppChild({isSignIn, setIsSignIn}) {
   // const [isSignIn, setIsSignIn] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [count, setCount] = useState(0);
   const [cartCount, setCartCount] = useState(null)
@@ -31,6 +32,9 @@ export default function AppChild({isSignIn, setIsSignIn}) {
   let user;
   useEffect(()=>{
     // alert("AppChild")
+    fetch('/api/time').then(res => res.json()).then(data => {
+      setCurrentTime(data.time);
+    });
     user = localStorage.getItem("user");
     let test;
     try {
@@ -49,32 +53,33 @@ export default function AppChild({isSignIn, setIsSignIn}) {
           if (cart.length > 0){
               setCartItems(n => setCartItems(cart));
           }
+          setCartCount(cart.length);
       } catch (error) {
           setCartItems(n => setCartItems([]));
       }
-      setCartCount(cart.length);
     }
     else{
       setCartCount(0);
     }
   },[isSignIn]);
 
-  
+  // xsm:bg-lime-500
+  // sm:bg-red-500 
+  // md:bg-fuchsia-500
+  // lg:bg-yellow-500
+  // xl:bg-orange-600
+  // 2xl:bg-blue-500 
   
  
 
   return (
     <div className='relative selection:bg-violet-400
-    xsm:bg-lime-500
-    sm:bg-red-500 
-    md:bg-fuchsia-500
-    lg:bg-yellow-500
-    xl:bg-orange-600
-    2xl:bg-blue-500 
+
 
     '>
       <div className=' md:w-full md:z-10'>
          <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
+         <p className='text-black'>The current time is {currentTime}.</p>
       </div>
     
       <Routes>

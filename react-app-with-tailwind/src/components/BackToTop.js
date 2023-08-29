@@ -8,7 +8,7 @@ function BackToTop() {
   height = height*height;
   let width = Math.min(window.innerWidth);
   return (
-    <div className='flex flex-col gap-3 fixed bottom-3 right-5 z-10 md:right-8'>
+    <div className='flex flex-col gap-3 fixed bottom-3 right-3 z-10 md:right-8'>
       <div>
         <div onClick={()=> window.scrollTo(0, 0)} className='h-10 w-10 bg-white z-20 rounded-full hover:bg-purple-600 border-2 border-purple-900 box-content md:hidden'>
           <ArrowCircleUpIcon sx={{fontSize:40, color: purple[800], "&:hover": {color : 'white'} }} />

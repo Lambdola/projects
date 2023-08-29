@@ -6,31 +6,31 @@ import BackToTop from '../components/BackToTop';
 import { useNavigate } from 'react-router-dom';
 import { toMoneyString } from '../toMoneyString';
 
-function Cart({ isSignIn ,setIsSignIn, setCartItems, cartItems, count, setCount, cartCount,totalPrice, setTotalPrice}) {
+function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, setTotalPrice}) {
     const [ removePrompt, setRemovePrompt ] = useState("hide");
     const [repairItem, setRepairItem]= useState({});
-    let navigate = useNavigate();
+    let navigate = useNavigate(); 
    
     useEffect(()=>{
         window.scrollTo(0, 0);
+        // window.location.reload();
         // alert("Cart")
         let user = localStorage.getItem("user");
         let test;
         try {
-        user = JSON.parse(user);
-        test = user.loggedIn;
+            user = JSON.parse(user);
+            test = user.loggedIn;
         } catch (error) {
-        user = { "loggedIn": "false" };
+            user = { "loggedIn": "false" };
         }
     
         if (user.loggedIn === "true"){
             // alert("CCart")
-            setIsSignIn(true);
-            // let user = localStorage.getItem("user");
+            // setIsSignIn(true);
+
             let cart = localStorage.getItem(user.email);
             try {
                 cart = JSON.parse(cart);
-                // cart = cart.filter((cnt) => cnt.Count !== 0);
                 if (cart.length > 0){
                     setCartItems(n => setCartItems(cart))
                     localStorage.setItem(`${user.email}`, JSON.stringify(cart));
@@ -41,7 +41,10 @@ function Cart({ isSignIn ,setIsSignIn, setCartItems, cartItems, count, setCount,
             } catch (error) {
                 setCartItems(n => setCartItems([]));
             }
+        } else {
+            navigate("/sign-in");
         }
+        // window.location.reload();
     },[]);
 
     
@@ -93,7 +96,13 @@ function Cart({ isSignIn ,setIsSignIn, setCartItems, cartItems, count, setCount,
         setTotalPrice(0);
     }
 
-    let copyCart = cartItems.filter((items) => (items.Count > 0 || items.tag === "Repairs"));
+    let copyCart;
+    try {
+        copyCart = cartItems.filter((items) => (items.Count > 0 || items.tag === "Repairs"));
+    } catch (error) {
+        copyCart = [];
+    }
+   
     return (
     <div className='page-transition'>
         { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} repairItem={repairItem} setRepairItem={setRepairItem} tag="Repairs" /> }
@@ -108,14 +117,16 @@ function Cart({ isSignIn ,setIsSignIn, setCartItems, cartItems, count, setCount,
                 copyCart.map( items => {
                     if (items.objectId) {
                         return (
-                            <div key={items.objectId + items.tag} className='md:p-2'>
-                                <CartInfo key={items.objectId} salesInfo={items} image={items.url} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} priceFormat={priceFormat} /> 
+                            <div key={items.objectId + items.Tag  } className='md:p-2'>
+                                <CartInfo salesInfo={items} image={items.url} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} priceFormat={priceFormat} /> 
                             </div>
                             );
                     } else if (items.title) {
                         return (
-                            <>
-                                <div className=' w-80 h-[32rem] mx-auto mb-10 px-3 py-2 pb-3 rounded-lg border-4 border-purple-900 space-y-2'>
+                                <div key={items.title} className=' w-80 mx-auto mb-10 px-3 py-2 pb-3 rounded-lg border-4 border-purple-900 space-y-2'>
+                                    <div className='w-2/3 h-40 mx-auto'>
+                                        <img src={items.url} alt={items.title} className='w-full h-full' />
+                                    </div>
                                     <p className='text-purple-900 text-md text-center font-roboto font-bold -mb-2'>{items.title}</p>
                                     <div className='border-2 border-violet-700 flex'></div>
                                     <p className='font-bold text-purple-800 text-lg text-center'>{items.year + " " + items.make + " " + items.model + " " + items.category}</p>
@@ -133,10 +144,9 @@ function Cart({ isSignIn ,setIsSignIn, setCartItems, cartItems, count, setCount,
                                         <Remove showPrompt={showPrompt} items={items} />
                                     </div>
                                 </div>
-                            </>
+
                         );
                     }
-                    return 0;
                 } )
                  : 
                 <h2 className='text-black text-4xl font-bold text-center font-roboto'>No Items Yet</h2>

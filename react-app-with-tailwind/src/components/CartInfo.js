@@ -27,6 +27,13 @@ function CartInfo({salesInfo, image, setCartItems, cartItems, setCount, setTotal
                     setCartItems(newCartItems);
                 }
                 if (param === "minus"){
+                    if (items.Count === 1) {
+                        newCartItems = cartItems.filter(item => item !== items)
+                        setTotalPrice(prevPrice => prevPrice);
+                        setCartItems(newCartItems);
+                        localStorage.setItem(`${user.email}`, JSON.stringify(newCartItems));
+                        return 0;
+                    }
                     items = {...items, "Count":items.Count--};
                     if (items.Count === 0) {
                         items = {};

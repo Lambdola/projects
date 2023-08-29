@@ -86,7 +86,7 @@ export default function RentForm({setRentFormState, newCartItems, rentalData, se
         // }
         localStorage.setItem(`${user.email}`, JSON.stringify(newCartItems));
         setCartItems(newCartItems);
-        alert(cartItems.length)
+        // alert(cartItems.length)
         setAddedPrompt("show");
         setRentForm("hide");
         setRentFormState("close");
@@ -102,13 +102,14 @@ export default function RentForm({setRentFormState, newCartItems, rentalData, se
         <div onClick={()=> setRentForm("hideRentFormPrompt")} className='fixed top-0 bg-slate-900 opacity-50 h-full w-full'></div>
         <h1 className='font-bold text-xl text-center'>Rentals Form</h1>
         <div className='border-2 border-black m-2'></div>
-        { select && 
-            <div className={` text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 `} >
-                <p>Fill in the field in red !</p>
-            </div> 
-        }
-        <div  className='fixed bg-white h-96 w-[21.5rem] top-28 ml-2 rounded-xl p-3 shadow-lg md:w-4/5 md:left-[10%] md:top-1/4 md:h'>
+       
+        <div  className='fixed bg-white h-[25rem] w-[21.5rem] top-28 ml-2 rounded-xl p-3 shadow-lg md:w-4/5 md:left-[10%] md:top-1/4 md:h'>
             <p className='p-1 border-b border-orange-600 inline-block font-bold md:text-2xl'>Rent Cars</p>
+            { select && 
+                <div className={` text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 mt-3 `} >
+                    <p>Fill in the field in red !</p>
+                </div> 
+            }
             <div className='mt-5'>
                 <p className='text-black font-normal md:text-2xl'>Pick-up & return</p>
                 <div className='relative'>

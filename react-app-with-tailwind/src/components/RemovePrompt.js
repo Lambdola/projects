@@ -66,22 +66,22 @@ function RemovePrompt({setRemovePrompt, cartItems, setCartItems, salesInfo, repa
     return (
     <>
     <div className='fixed top-0 bg-slate-900 opacity-50 h-full w-full'></div>
-    <div className='fixed bg-white w-[21.5rem] h-36 top-1/3 ml-2 rounded-xl p-3 shadow-lg md:w-2/3 md:left-36 md:h-48'>
-        <div className=''>
+    <div className='fixed w-full top-1/4 rounded-xl shadow-lg md:w-2/3 md:left-36 md:h-48'>
+        <div className='bg-slate-100 rounded-xl shadow-lg w-[90%] mx-auto p-4 '>
             <div className='float-right hover:bg-gray-700 rounded-full'>
                 <CloseIcon onClick={()=> showPrompt("hide")} sx={{fontSize:30}} />
             </div>
-            <p className='font-bold text-lg md:text-2xl'>Remove from cart</p>
-            <p className='text-sm font-medium mt-3 md:text-xl'>Do you really want to remove this item from cart?</p>
-            <div className='flex justify-between py-1 px-2 bg-purple-700 text-center mt-5 shadow-lg hover:bg-purple-900 active:bg-green-600 md:h-14'>
+            <p className='font-bold text-xl text-gray-950 md:text-2xl'>Remove from cart</p>
+            <p className='text-lg font-medium text-gray-800 mt-3 md:text-xl'>Do you really want to remove this item from cart?</p>
+            <div className='flex justify-between py-1 px-2 bg-purple-700 text-center mt-5 shadow-lg hover:bg-red-600  active:bg-red-600 md:h-14'>
                 <div className='md:hidden'>
                     <DeleteForeverOutlinedIcon sx={{color:'white', fontSize: 30}} />
                 </div>
                 <div className='hidden md:block md:mt-1'>
                     <DeleteForeverOutlinedIcon sx={{color:'white', fontSize: 40}} />
                 </div>
-                <div className='w-full'>
-                    <button onClick={handleRemoveItem} className='text-white font-semibold w-full h-8 md:text-xl md:mt-2'>REMOVE ITEM</button>
+                <div className='w-full pr-4'>
+                    <button onClick={handleRemoveItem} className='text-white text-center font-semibold w-full h-8 md:text-xl md:mt-2'>REMOVE ITEM</button>
                 </div>
             </div>
         </div>

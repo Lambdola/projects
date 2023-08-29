@@ -43,6 +43,8 @@ function MakePayment({ isSignIn ,setIsSignIn, setCartItems, totalPrice}) {
             } catch (error) {
                 setCartItems(n => setCartItems([]));
             }
+        } else {
+            navigate("/sign-in");
         }
     },[]);
     let navigate = useNavigate();

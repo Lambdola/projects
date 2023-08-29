@@ -112,14 +112,23 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
     user = JSON.parse(user);
 	function handleFormSubmit(e){
 		e.preventDefault();
-		let newCartItems = (checkBox ? [...cartItems,{...data, ...details, "location": "Home Service"}] : [...cartItems,{...data, ...details, "location": "Workshop Service"}] ) ;
+		let newCartItems = ( checkBox ? {...data, ...details, "location": "Home Service"} : {...data, ...details, "location": "Workshop Service"} ) ;
+		for (let items of cartItems) {
+			if (items.title == newCartItems.title ) {
+				setRepairService("");
+				return 0;
+			}
+		}
+		newCartItems = [...cartItems, newCartItems ]
 		localStorage.setItem(`${user.email}`, JSON.stringify(newCartItems));
 		setCartItems(newCartItems);
+		setRepairService("");
 	}
 
 	function handleDetailsChange(e) {
 		let name = e.target.name;
-		let value = e.target.value;
+		let value = e.target.value; 
+		
 		setDetails({...details,[name]: value });
 	}
 
@@ -135,7 +144,7 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 
 	return (
 		<div className=''>
-			<form onSubmit={handleSearchSubmit} className='flex justify-between md:text-2xl'>
+			<form onSubmit={handleSearchSubmit} className='flex justify-center md:text-2xl'>
 				<input type="text" value={keyWords.search} onChange={(e)=> setKeyWords({...keyWords, "search": e.target.value})} placeholder='Search for a repair service' className='w-72 border border-purple-700 rounded-lg p-2 m-2 md:w-full md:h-14' />
 				<button type="submit" className='pt-1 mr-2 hover:bg-purple-200 hover:rounded-lg active:bg-green-600'>
 					<Search sx={{fontSize: 40, color: purple[800]}} />
@@ -147,12 +156,14 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 			{ copyRepairsDatabase.length > 0 ? 
 				copyRepairsDatabase.map(items => {
 					return (
-						<div className='border border-black p-2 mb-5 '>
+						<div key={items.title} className='border border-black p-2 mb-5 '>
 							<div className='float-right'>
-								<div className='h-12 w-12 bg-red-500'></div>
+								{ items.url ?  <div className='flex align-middle justify-center h-20 w-20'>
+									<img src={items.url} className='h-full w-full' alt={items.title} />
+								</div> : <div className='h-20 w-20 bg-red-500'></div>}
 							</div>
 							<h3 className='font-bold text-black text-xl'>{items.title}</h3>
-							<p>{items.content}</p>
+							<p className='text-gray-800 font-normal'>{items.content}</p>
 							<div className='p-1'>
 								<button onClick={() => handleShowService(items)} className='bg-blue-900 w-full text-white font-bold text-center py-2 block mt-3'>Schedule Service</button>
 							</div>
@@ -166,7 +177,7 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 		<div className='w-80 mx-auto text-center text-sm font-medium mb-3 bg-violet-100 p-2 rounded-xl text-purple-950 md:text-xl md:w-2/3'>
 			<p>Please note that the date and time you requested may not be available. We will contact you to confirm your actual appointment details. </p>
 		</div>
-		<div className='bg-violet-900 w-80 mx-auto py-5 px-5 space-y-3 rounded-xl md:w-2/3 md:text-xl md:space-y-5'>
+		<div className='bg-violet-900 w-80 mx-auto mb-28 py-5 px-5 space-y-3 rounded-xl md:w-2/3 md:text-xl md:space-y-5'>
 			<h2 className='text-white font-bold text-xl text-center pb-1 border-b-4 border-white md:text-2xl'>{data.title}</h2>
 			<div className='flex justify-center gap-7'>
 				<div className='flex flex-wrap align-middle gap-1'>
@@ -185,7 +196,7 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 				</div>
 				<div className=''>
 					<label htmlFor='phone' className='block text-white'>Phone</label>
-					<input name="phone" placeholder='Phone Number' value={details.phone} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="phone" maxLength={11} placeholder='Phone Number' value={details.phone} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='email' className='block text-white'>Email</label>
@@ -193,7 +204,7 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 				</div>
 				<div className=''>
 					<label htmlFor='year' className='block text-white'>Year</label>
-					<input name="year" placeholder='Car Year e.g 2020' value={details.year} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="year" maxLength={4} placeholder='Car Year e.g 2020' value={details.year} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='make' className='block text-white'>Make </label>
@@ -221,7 +232,7 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 					<textarea name="address" placeholder='Home Address' value={details.address} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14'></textarea>
 				</div> }
 				<div className='text-center'>
-					<button type="submit" className='text-white font-bold bg-purple-700 w-52 p-3 text-lg md:text-xl md:h-14 rounded-xl hover:bg-purple-900 active:bg-green-600'>Book Service</button>
+					<button type="submit" className='text-white font-bold bg-purple-700 w-52 p-3 text-lg md:text-xl md:h-14 rounded-xl hover:bg-orange-500 hover:text-violet-900 active:bg-green-600'>Book Service</button>
 				</div>
 			</form>
 		</div></>

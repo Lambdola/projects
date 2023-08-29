@@ -19,6 +19,7 @@ function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag}) {
     let navigate = useNavigate();
     useEffect(()=> {
         window.scrollTo(0, 0);
+        // window.location.reload();
         // alert("SalesItemInfo");
         setRentFormState("")
     }, [addedPrompt]);
@@ -71,17 +72,8 @@ function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag}) {
         } else {
             setRentFormState("open");
             setRentForm("showRentFormPrompt");
-            // let wait, id, formState;
-            // setInterval(() => {
-            //     wait = new Promise((resolve, reject) => {
-            //         if (rentFormState === "close"){
-            //             resolve("Close")
-            //         }
-            //         clearInterval()
-            //     })
-            //     wait.then((value)=>alert(value),(value)=>alert(value));
-            // }, 500);
         }
+        // window.location.reload();
     }
 
     if ( rentalData.pickUp.length > 0) {

@@ -4,6 +4,7 @@ import BackToTop from '../components/BackToTop';
 
 function Reviews({isSignIn, setIsSignIn}) {
     useEffect(()=> {
+        window.scrollTo(0, 0);
         let user = localStorage.getItem("user");
         let test;
         try {

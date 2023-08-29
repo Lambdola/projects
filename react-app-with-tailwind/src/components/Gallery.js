@@ -52,7 +52,7 @@ function Gallery() {
             {GalleryData.map((item)=> <div key={item.url} className={`mr-2 h-4 w-4 rounded-full inline-block border border-black ${GalleryData[id] === item ? "bg-purple-500" : "bg-white"}`} onClick={()=>handleGallerySlide(item)}></div> )}
           </div>
           <div className='flex justify-center align-middle -mt-2'>
-            <p className='text-purple-700 text-lg font-semibold font-sans m-2 md:text-xl'>{GalleryData[id].text}</p>
+            <p className='text-purple-700 text-md font-semibold font-roboto shadow-lg m-2 md:text-xl'>{GalleryData[id].text.toUpperCase()}</p>
           </div>
         </div>
       </div>

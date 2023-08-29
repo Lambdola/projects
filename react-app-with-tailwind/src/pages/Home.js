@@ -13,7 +13,7 @@ import CartContent from '../components/CartContent';
 export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome, cartCount, setSignInWelcome}) {
     useEffect(()=> {
         // alert("Home")
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         let user = localStorage.getItem("user");
         let test;
         try {
@@ -50,7 +50,14 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
         { "path": "/contact-us", "text": "CONTACT US" }
     ];
 
-    const whyUs = [ "Timeliness", "Trustworthy", "Accuracy and Efficiency", "Reputable and Reliable", "Home Service", "Mobile Workshop" ];
+    const whyUs = [ 
+        { "reason": "Timeliness", "text": "At Trizent Autos, we redefine the meaning of efficiency and punctuality. We understand that time is a valuable asset, and we are committed to delivering results that align with your schedule and expectations. " } , 
+        { "reason": "Trustworthy", "text": "Trust is earned through consistency, transparency, and integrity. Our track record speaks for itself, as we've diligently fostered trust-based relationships with clients like you. When you choose us, you're not just selecting a service; you're choosing a partner who values honesty and reliability above all else. " }  , 
+        { "reason": "Accuracy and Efficiency", "text": "Behind every successful project is a team that thrives on accuracy and efficiency. Our skilled professionals not only possess the expertise to handle even the most complex tasks but also bring a sense of urgency that drives us to excel in every endeavor. " } , 
+        { "reason": "Reputable and Reliable", "text": "When it comes to choosing a partner, reputation and reliability are the cornerstones of confidence. At [Your Company Name], we've earned our standing as a trusted name through unwavering commitment to excellence and a track record of reliability that speaks for itself. " } , 
+        { "reason": "Home Service", "text": " With Trizent Autos, expertise comes to you. Our team of trained professionals arrives fully equipped to provide top-notch services that meet the highest standards. From routine maintenance to intricate projects, we have the skills and tools to deliver results that elevate the quality of your living space." } , 
+        { "reason": "Mobile Workshop", "text": " We understand the challenges of balancing a busy schedule with essential vehicle care. Our mobile workshop is designed with your convenience in mind. Say goodbye to long wait times at traditional workshops; we arrive at your preferred location, equipped and ready to address your automotive needs, all while you carry on with your day." }  
+    ];
 
     return (
     <div className='page-transition'>
@@ -72,7 +79,7 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                     '>
                         <h2 className='text-lg mb-5 font-bold text-slate-900 lg:portrait:mb-0 lg:portrait:mt-10 lg:portrait:text-2xl xl:landscape:text-3xl xl:landscape:my-10 '>BUSINESS HOURS</h2>
                         <div>
-                            <p className='underline'>MvON - FRI</p>
+                            <p className='underline'>MON - FRI</p>
                             <p>8:00 AM - 6:00 PM</p>
                         </div>
                         <div>
@@ -127,11 +134,11 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                     <div className='bg-slate-900 p-3  '>
                         <h2 className='text-gray-900 font-bold text-center'>Why Us </h2>
                         <div className='space-y-5 lg:flex lg:flex-wrap lg:justify-evenly lg:space-y-0 gap-1 xl:'>
-                            { whyUs.map(reasons => {
+                            { whyUs.map(options => {
                                 return (
-                                    <div key={reasons} className='text-center bg-slate-600 lg:w-[30%] lg:h-40'>
-                                        <div className='w-full h-40 bg-blue-400 lg:h-[80%]'></div>
-                                        <p className='text-slate-300'>{reasons}</p>
+                                    <div key={options.reason} className='text-center bg-slate-600 lg:w-[30%] lg:h-40'>
+                                        <div className='w-full h-40 overflow-scroll no-scrollbar bg-blue-400 lg:h-[80%] p-2 text-slate-100'>{options.text}</div>
+                                        <p className='text-orange-400 font-roboto p-1'>{options.reason}</p>
                                     </div>
                                 );
                             }) }
@@ -158,14 +165,14 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                 <div className='bg-slate-900 p-3 lg:w-[65%] lg:portrait:pt-5 xl:landscape:w-2/3 '>
                     <h2 className='text-gray-900 font-bold text-center'>Why Us </h2>
                     <div className='space-y-5  lg:flex lg:flex-wrap lg:justify-evenly lg:space-y-0 gap-1 xl:mt-4'>
-                        { whyUs.map(reasons => {
-                            return (
-                                <div key={reasons} className='text-center bg-slate-600 lg:w-[30%] lg:h-40'>
-                                    <div className='w-full h-40 bg-blue-400 lg:h-[80%]'></div>
-                                    <p className='text-slate-300'>{reasons}</p>
-                                </div>
-                            );
-                        }) }
+                    { whyUs.map(options => {
+                        return (
+                            <div key={options.reason} className='text-center bg-slate-600 lg:w-[30%] lg:h-40'>
+                                <div className='w-full h-40 overflow-scroll no-scrollbar bg-blue-400 lg:h-[80%] p-2 text-slate-100'>{options.text}</div>
+                                <p className='text-orange-400 font-roboto p-1'>{options.reason}</p>
+                            </div>
+                        );
+                    }) }
                     </div>
                 </div>
             
