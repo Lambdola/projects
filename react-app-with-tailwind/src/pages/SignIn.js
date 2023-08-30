@@ -8,6 +8,15 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
   if (redirect === "yes") {
     setTimeout(() => navigate("/"),2000);
   }
+ 
+  async function signUpApiCall(param){
+    const response = await fetch("/api/signUp", {
+      method: "POST",
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify(param)
+    })
+  }
+  
   return (
     <div className=' md:w-2/3 md:mx-auto md:text-xl'>
       <div className='space-x-4 mb-4'>
@@ -60,7 +69,7 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
           <input required name="country" type="text" value={details.country} onChange={handleDetailsChange} placeholder="Country" autoComplete="off" className='border border-slate-400 rounded py-1 px-3 w-full' />
         </div>
         <div className='text-center'>
-          <button type="submit" className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600`}>Create Account</button>
+          <button onClick={()=>signUpApiCall(details)}   type="submit" className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600`}>Create Account</button>
           </div>
       </form>
     </div>
@@ -68,13 +77,15 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
 }
 
 
-function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetails,userLogInDetails, hasAccount, setHasAccount, setIsSignIn}) {
+function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetails,userLogInDetails, hasAccount, setHasAccount, setIsSignIn, logInApiCall}) {
   const navigate = useNavigate();
   let show = "hidden";
 
   function handleLogIn(e) {
     setUserLogInDetails({...userLogInDetails, [e.target.name]: e.target.value});
   }
+
+
 
 
   if (hasAccount === "yes") {
@@ -94,7 +105,7 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
         <p>Incorrect Email and/or Password</p>
       </div>
       <div>
-        <form onSubmit={handleLogInSubmit} className='space-y-5'>
+        <form onSubmit={logInApiCall} className='space-y-5'>
           <div>
             <p>E-MAIL</p>
             <input name="emai" required type="email" value={userLogInDetails.emai} onChange={handleLogIn} placeholder="E-MAIL" autoComplete="off" className='border border-slate-400 rounded py-1 px-3 w-full'/>
@@ -134,8 +145,11 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
   const [newMember, setNewMember] = useState(true);
   const [hasAccount, setHasAccount] = useState("");
   const [enable, setEnable] = useState("no");
+
   let navigate = useNavigate();
-  useEffect(()=> window.scrollTo(0, 0), []);
+  useEffect(()=>{ 
+    window.scrollTo(0, 0);
+  }, []);
 
 
   function handleLogInDisplay(e) {
@@ -179,8 +193,11 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
     setDetails({...details,[name]: value });
   }
 
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    
+
     let newStatus = {};
     if (details.email !== details.confirmEmail) {
       newStatus.emailMatch = false;
@@ -193,7 +210,7 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
     } else { 
       newStatus.passwordMatch = true; 
     }
-   
+    
     let newDetails = {...details, "loggedIn": "false"};
     localStorage.setItem("user", JSON.stringify(newDetails));
     setEnable(n => setEnable("yes"));
@@ -202,37 +219,27 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
   }
 
   
-  function handleLogInSubmit(e) {
+  async function logInApiCall(e) {
     e.preventDefault();
-    let user = localStorage.getItem("user");
-    // user = JSON.parse(user);
-    let test;
-    try {
-      user = JSON.parse(user);
-      test = user.email;
-        let updateDetails;
-      if ((userLogInDetails.emai === user.email) && (hash(userLogInDetails.password) === user.password)) {
-        updateDetails = {...user, "loggedIn": "true"};
+    const response = await fetch("/api/logIn", {
+      method: "POST",
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify({...userLogInDetails, "password": hash(userLogInDetails.password)})
+    })
+    
+    let data = response.json().then(
+      (resolve)=> {
+        let updateDetails = {...resolve, "loggedIn": "true"};
         localStorage.setItem("user", JSON.stringify(updateDetails));
-        setHasAccount(n => setHasAccount("yes"));
+        setHasAccount("yes");
         setIsSignIn(true);
         setSignInWelcome("show");
-      } else {
+      },
+      (rejected) => {
+        localStorage.setItem("user", JSON.stringify({ "loggedIn": "false" }));
         setHasAccount("no");
       }
-    } catch (error) {
-      setHasAccount("no")
-    }
-    // let updateDetails;
-    // if ((userLogInDetails.emai === user.email) && (hash(userLogInDetails.password) === user.password)) {
-    //   updateDetails = {...user, "loggedIn": "true"};
-    //   localStorage.setItem("user", JSON.stringify(updateDetails));
-    //   setHasAccount(n => setHasAccount("yes"));
-    //   setIsSignIn(true);
-    //   setSignInWelcome("show");
-    // } else {
-    //   setHasAccount("no");
-    // }
+    )
   }
 
   return (
@@ -240,6 +247,7 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
       <h1 className='font-bold text-xl text-center'>SIGN IN</h1>
       <div className='border-2 border-black m-2'></div>
       <div className=' px-3'>
+         
         { newMember ? 
           < NewMember 
             handleLogInDisplay={handleLogInDisplay} 
@@ -252,13 +260,14 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
           /> : 
           < NotNewMember 
             handleLogInDisplay={handleLogInDisplay} 
-            handleLogInSubmit={handleLogInSubmit}
+            
             userLogInDetails={userLogInDetails}
             setUserLogInDetails={setUserLogInDetails}
             hasAccount={hasAccount}
             setHasAccount={setHasAccount} 
             setSignInWelcome={setSignInWelcome}
             setIsSignIn={setIsSignIn}
+            logInApiCall={logInApiCall}
           />
         }
       </div>

@@ -15,6 +15,7 @@ import MakePayment from './pages/MakePayment';
 export default function AppChild({isSignIn, setIsSignIn}) {
   // const [isSignIn, setIsSignIn] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [view, setView] = useState("")
   const [cartItems, setCartItems] = useState([]);
   const [count, setCount] = useState(0);
   const [cartCount, setCartCount] = useState(null)
@@ -31,10 +32,12 @@ export default function AppChild({isSignIn, setIsSignIn}) {
   
   let user;
   useEffect(()=>{
+    window.scrollTo(0, 0);
     // alert("AppChild")
     fetch('/api/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
     });
+  
     user = localStorage.getItem("user");
     let test;
     try {
@@ -80,6 +83,7 @@ export default function AppChild({isSignIn, setIsSignIn}) {
       <div className=' md:w-full md:z-10'>
          <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
          <p className='text-black'>The current time is {currentTime}.</p>
+         {/* <p className='text-black'>View: {view}</p> */}
       </div>
     
       <Routes>

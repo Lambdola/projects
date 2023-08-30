@@ -88,6 +88,7 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 		"word": ""
 });
 	const [copyRepairsDatabase, setCopyRepairsDatabase] = useState([...repairs_database]);
+	useEffect(()=>{window.scrollTo(0, 0);},[]);
 	let navigate = useNavigate();
 	function handleShowService(param){
 		if (user.loggedIn === "false"){
@@ -192,44 +193,44 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 			<form onSubmit={handleFormSubmit} className='space-y-3'>
 				<div className=''>
 					<label htmlFor='name' className='block text-white'>Name</label>
-					<input name="name" placeholder='Your Full Name' value={details.name} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="name" placeholder='Your Full Name' autoComplete='off' value={details.name} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='phone' className='block text-white'>Phone</label>
-					<input name="phone" maxLength={11} placeholder='Phone Number' value={details.phone} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="phone" maxLength={11} placeholder='Phone Number' autoComplete='off' value={details.phone} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='email' className='block text-white'>Email</label>
-					<input name="email" placeholder='E-mail' value={details.email} onChange={handleDetailsChange} type="email" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="email" placeholder='E-mail' autoComplete='off' value={details.email} onChange={handleDetailsChange} type="email" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='year' className='block text-white'>Year</label>
-					<input name="year" maxLength={4} placeholder='Car Year e.g 2020' value={details.year} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="year" maxLength={4} placeholder='Car Year e.g 2020' autoComplete='off' value={details.year} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='make' className='block text-white'>Make </label>
-					<input name="make" placeholder='Car Make e.g. Audi' value={details.make} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="make" placeholder='Car Make e.g. Audi' autoComplete='off' value={details.make} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='model' className='block text-white'>Model </label>
-					<input name="model" placeholder='Car Model e.g. Q3' value={details.model} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="model" placeholder='Car Model e.g. Q3' autoComplete='off' value={details.model} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='category' className='block text-white'>Category</label>
-					<input name="category" placeholder='Car Category e.g. SUV' value={details.category} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="category" placeholder='Car Category e.g. SUV' autoComplete='off' value={details.category} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='date' className='block text-white'>Choose a Date</label>
-					<input name="date"  value={details.date} onChange={handleDetailsChange} type="date" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="date" autoComplete='off'  value={details.date} onChange={handleDetailsChange} type="date" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				<div className=''>
 					<label htmlFor='time' className='block text-white'>Choose a Time</label>
-					<input name="time" value={details.time} onChange={handleDetailsChange} type="time" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
+					<input name="time" autoComplete='off' value={details.time} onChange={handleDetailsChange} type="time" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14' />
 				</div>
 				{ checkBox &&
 				<div className=''>
 					<label htmlFor='address' className='block text-white'>Address</label>
-					<textarea name="address" placeholder='Home Address' value={details.address} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14'></textarea>
+					<textarea name="address" autoComplete='off' placeholder='Home Address' value={details.address} onChange={handleDetailsChange} type="text" className='w-full bg-transparent border-2 border-white p-1 px-3 font-semibold text-white text-lg md:text-xl md:h-14'></textarea>
 				</div> }
 				<div className='text-center'>
 					<button type="submit" className='text-white font-bold bg-purple-700 w-52 p-3 text-lg md:text-xl md:h-14 rounded-xl hover:bg-orange-500 hover:text-violet-900 active:bg-green-600'>Book Service</button>
