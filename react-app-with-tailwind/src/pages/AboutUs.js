@@ -46,7 +46,7 @@ function AboutUs({ isSignIn, setIsSignIn}) {
     <div className='border-2 border-black  m-2'></div>
 
     {/* Services Icon */}
-    <div className='w-full h-40 absolute -z-10 blur-sm'>
+    <div className='w-full  absolute -z-10 blur-sm'>
       <img src="https://images.pexels.com/photos/17883975/pexels-photo-17883975/free-photo-of-steering-wheel-in-luxury-car.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Background" className='h-full w-full object-cover' />
     </div>
     <div className='flex justify-evenly '>
@@ -93,8 +93,8 @@ function AboutUs({ isSignIn, setIsSignIn}) {
           <h2 className='text-slate-100 font-bold text-lg'>Our Story</h2>
           <p className='text-slate-200'>Our story is one of visionaries coming together to create something extraordinary. With a deep understanding of the automotive industry and a desire to redefine the car-owner experience, we embarked on a mission to provide more than just services but to provide a lifestyle, a sense of freedom, a circle of trust and a bond between driver and machine.</p>
         </div>
-        <div className='w-1/3'>
-          <img src="https://images.pexels.com/photos/11154021/pexels-photo-11154021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Our Story" className='h-full w-full object-cover' />
+        <div className='w-1/3 '>
+          <img src="https://images.pexels.com/photos/11154021/pexels-photo-11154021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Our Story" className='h-full object-cover' />
         </div>
       </div>
 
@@ -106,7 +106,7 @@ function AboutUs({ isSignIn, setIsSignIn}) {
         <div className='w-1/3'>
           <img src="https://images.pexels.com/photos/4806437/pexels-photo-4806437.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Our Goal" className='h-full object-cover' />
         </div>
-        
+
       </div>
 
       <div className='w-full bg-gray-950 flex'>
@@ -114,7 +114,7 @@ function AboutUs({ isSignIn, setIsSignIn}) {
           <h2 className='text-slate-100 font-bold text-lg'>How We Get Things Done</h2>
           <p className='text-slate-200'>Every journey begins with understanding. When you choose Trizent Autos, we take the time to listen to your preferences, requirements, needs and aspirations. Whether you're buying or seeking a specific make and model, renting or looking for the perfect car for your use, looking for a qualified place to do your repairs or need guidance on the perfect fit for your car lifestyle, our team is here to ensure we're on the same page.</p>
         </div>
-        <div className='w-1/3'>
+        <div className='w-1/3 '>
           <img src="https://images.pexels.com/photos/38271/ipad-map-tablet-internet-38271.jpeg?auto=compress&cs=tinysrgb&w=300" alt="How we operate" className='h-full object-cover' />
         </div>
         

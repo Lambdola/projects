@@ -1,3 +1,4 @@
+import { ArrowBackIos, ArrowForwardIos, ArrowLeft } from '@mui/icons-material';
 import React, {useState} from 'react';
 
 function Gallery() {
@@ -27,11 +28,20 @@ function Gallery() {
     setId(index);
   }
 
-  function handleClick() {
-    if (id === GalleryData.length-1){
-      setId(0);
-    } else {
-      setId(prevId => prevId + 1);
+  function handleClick(param) {
+    if (param === "Back") {
+      if (id === 0){
+        setId(GalleryData.length-1);
+      } else {
+        setId(prevId => prevId - 1);
+      }
+    }
+    if (param === "Forward") {
+      if (id === GalleryData.length-1){
+        setId(0);
+      } else {
+        setId(prevId => prevId + 1);
+      }
     }
   }
 
@@ -40,19 +50,23 @@ function Gallery() {
     <>
       <div className='relative w-full border bg-slate-900 text-center py-3 h-[25rem] md:h-[30rem]
       '>
-        <div className='absolute bottom-0 bg-yellow-400 w-full h-44 '></div>
+        <div className='absolute bottom-0 bg-yellow-40 w-full h-44 '></div>
         <div className='relative lg:portrait:-mt-2'>
           <h2 className='text-white text-2xl mb-3'>WHAT WE CAN DO FOR YOU </h2>
           <div>
-            <div id="gallery" onClick={handleClick} className='w-[21rem] h-56 mx-auto md:w-full md:p-2 md:h-80 '>
+            <div id="gallery" onClick={(e) => {handleClick('Forward')}} className='relative w-[21rem] h-56 mx-auto md:w-full md:p-2 md:h-80 '>
+              <div className='absolute w-full h-20 bg-red-20 top-1/3 flex justify-between pt-5 px-2'>
+                <span onClick={(e) => { e.stopPropagation(); handleClick('Back')}}> <ArrowBackIos sx={{fontSize: 40}} /> </span>
+                <span onClick={(e) => {e.stopPropagation(); handleClick('Forward')}}> <ArrowForwardIos  sx={{fontSize: 40}} /> </span>
+              </div>
               <img key={GalleryData[id].url} src={GalleryData[id].url} alt={GalleryData[id].text} className='w-[21rem] h-full border-4 bg-purple-500 rounded-xl mx-auto md:w-full' />
             </div>
           </div>
           <div className='my-2'>
-            {GalleryData.map((item)=> <div key={item.url} className={`mr-2 h-4 w-4 rounded-full inline-block border border-black ${GalleryData[id] === item ? "bg-purple-500" : "bg-white"}`} onClick={()=>handleGallerySlide(item)}></div> )}
+            {GalleryData.map((item)=> <div key={item.url} className={`mr-2 h-4 w-4 rounded-full inline-block border border-transparent ${GalleryData[id] === item ? "bg-slate-200" : "bg-transparent"}`} onClick={()=>handleGallerySlide(item)}></div> )}
           </div>
           <div className='flex justify-center align-middle -mt-2'>
-            <p className='text-purple-700 text-md font-semibold font-roboto shadow-lg m-2 md:text-xl'>{GalleryData[id].text.toUpperCase()}</p>
+            <p className='text-slate-100 text-md font-semibold font-roboto shadow-lg m-2 md:text-xl'>{GalleryData[id].text.toUpperCase()}</p>
           </div>
         </div>
       </div>

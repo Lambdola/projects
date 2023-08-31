@@ -2,29 +2,51 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, redirect, useNavigate } from 'react-router-dom';
 
 
-function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChange, status}) {
+function NewMember({handleLogInDisplay, handleSubmit, details, handleDetailsChange, status, enable, hash}) {
   let navigate = useNavigate();
-  
-  if (redirect === "yes") {
-    setTimeout(() => navigate("/"),2000);
-  }
+  const [show, setShow] = useState("hidden");
+
+  useEffect(()=>{ 
+    window.scrollTo(0, 0);
+  }, []);
+
  
-  async function signUpApiCall(param){
-    const response = await fetch("/api/signUp", {
-      method: "POST",
-      headers: {'Content-Type' : 'application/json'},
-      body: JSON.stringify(param)
-    })
+  async function signUpApiCall(e, param){
+    e.preventDefault();
+  
+
+    if ((details.email === details.confirmEmail) && (details.password === details.confirmPassword)) {
+      const response = await fetch("/api/signUp", {
+        method: "POST",
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({...param,"password": hash(details.password), "confirmPassword": hash(details.confirmPassword), "loggedIn": "false"})
+      })
+
+      const data = await response.json();
+      if (data.message === "Already Exists"){
+        setShow("visible");
+      } else{
+        setShow("hidden");
+        handleSubmit();
+      }
+    } else{
+      setShow("hidden");
+      handleSubmit();
+    }
   }
   
+
   return (
     <div className=' md:w-2/3 md:mx-auto md:text-xl'>
       <div className='space-x-4 mb-4'>
         <span className='font-bold text-slate-400'>Already have an account ?</span>
         <NavLink name="logIn" onClick={handleLogInDisplay} className='font-bold text-blue-600 hover:text-blue-800 active:text-green-600'>Log In</NavLink>
       </div>
+      <div className={`${show} text-pink-500 font-bold text-center bg-pink-200 p-2 rounded-lg mb-5 `} >
+        <p>This email already exists </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className='space-y-5 mb-5'>
+      <form className='space-y-5 mb-5'>
         <p></p>
         <div>
           <p>E-MAIL</p>
@@ -69,8 +91,8 @@ function NewMember({handleLogInDisplay, handleSubmit,details, handleDetailsChang
           <input required name="country" type="text" value={details.country} onChange={handleDetailsChange} placeholder="Country" autoComplete="off" className='border border-slate-400 rounded py-1 px-3 w-full' />
         </div>
         <div className='text-center'>
-          <button onClick={()=>signUpApiCall(details)}   type="submit" className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600`}>Create Account</button>
-          </div>
+          <button onClick={(e)=> {signUpApiCall(e, details)}}   type="submit" className={`text-white font-bold bg-purple-700 w-auto p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600`}>Create Account</button>
+        </div>
       </form>
     </div>
   );
@@ -89,7 +111,6 @@ function NotNewMember({handleLogInDisplay, handleLogInSubmit, setUserLogInDetail
 
 
   if (hasAccount === "yes") {
-    // setIsSignIn(n => setIsSignIn(true));
     setTimeout(() => navigate("/"),1000);
   }else if (hasAccount === "no"){
     show = "visible";
@@ -168,35 +189,22 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
   function hash(value) {
     const KEY = 5;
     let newValue = "";
-    for (let char in value) {
+    for (let char of value) {
       let newChar = char.charCodeAt(0) + KEY ;
       newValue += String.fromCharCode(newChar);
     }
-    return newValue;
+    return "ssh:Yjipojcdvuihweyu23o" + newValue + "iwwiHGYOFRThfTTF";
   }
 
 
   function handleDetailsChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-
-    if (name === "picture"){
-      alert(value);
-    }
-    if (name === "password" || name === "confirmPassword") {
-      value = hash(value);
-    }
-    if (name === "picture") {
-      let path = "C:\\Users\\User.DESKTOP-8DCLUDU\\Pictures\\";
-      value = path + value.replace("C:\\fakepath\\","");
-    }
     setDetails({...details,[name]: value });
   }
 
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    
+  function handleSubmit() {
 
     let newStatus = {};
     if (details.email !== details.confirmEmail) {
@@ -211,11 +219,10 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
       newStatus.passwordMatch = true; 
     }
     
-    let newDetails = {...details, "loggedIn": "false"};
+    let newDetails = {...details,"password": hash(details.password), "confirmPassword": hash(details.confirmPassword), "loggedIn": "false"};
     localStorage.setItem("user", JSON.stringify(newDetails));
     setEnable(n => setEnable("yes"));
     setStatus(n => setStatus(newStatus));
-    setTimeout(()=>navigate("/"),2000);
   }
 
   
@@ -256,6 +263,7 @@ function SignIn({setIsSignIn, signInWelcome, setSignInWelcome}) {
             handleDetailsChange={handleDetailsChange}
             status={status}
             redirect={redirect}
+            hash={hash}
             enable={enable}
           /> : 
           < NotNewMember 

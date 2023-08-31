@@ -37,8 +37,8 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
     
 
     let url = window.location.href;
-    let style = "bg-purple-600 text-purple hover:bg-purple-900 text-white";
-    let active = "border-4 border-purple-400 bg-white text-purple-500 hover:bg-purple-500 hover:border-purple-900 md:border-none";
+    let style = "bg-purple-600 text-purple hover:bg-purple-900 text-white pt-2 text-xl xl:text-[.7rem]";
+    let active = "border-4 border-purple-400 bg-white text-xl text-purple-500 hover:bg-purple-500 hover:border-purple-900 md:border-none  xl:text-[.7rem]";
 
     let cart, services, reviews, blog, aboutUs, contactUs;
     if (url.includes("cart")) {
@@ -144,15 +144,16 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                 </div>
             </div>
             
-            <div id="sideBar" className='h-full w-36 bg-slate-100 fixed top-0 right-0 hidden py-2 px-4 z-20 md:absolute md:flex md:w-full md:bg-transparent'>
+           
+            <div id="sideBar" className='transition-all h-full w-2/3 hidden bg-slate-50 fixed top-0 right-0  py-2 px-4 z-30 border-l-4 border-gray-800 md:absolute md:flex md:w-full md:bg-transparent'>
                 {/* handles sidebar div toggle and its contents; when logged in or not */}
-                <div onClick={() => handleMenuClick("close")} className=' h-full w-96 right-36 top-0 absolute z-50 bg-gray-500 opacity-50 md:w-full md:hidden '></div>
-                <div className='float-right mt-4 m-1 rounded text-center hover:bg-slate-300 p-1 md:hidden '>
+                 <div onClick={() => handleMenuClick("close")} className=' h-full w-[8rem] -left-32 top-0 absolute bg-gray-900 opacity-50 md:w-full md:hidden '></div>
+                <div className='float-right mt-6 m-1 rounded text-center hover:bg-slate-300 p-1 md:hidden '>
                     <CloseIcon sx={{color:'black' , "&:hover": {color: "black"}}}  onClick={() => handleMenuClick("close")} />
                 </div>
                 
                 { logIn ?
-                    ( <ul className='md:flex md:justify-around md:mt-14 md:w-full' >
+                    ( <ul className='md:flex md:justify-around md:mt-14 md:w-full bg-red-40' >
 
                         <li className='mt-16 flex flex-wrap justify-center md:absolute md:right-1 md:px-2 md:-mt-14 md:flex-row text-center'>
                             <div className='w-20 h-20 rounded-full bg-gray-700 border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-14 md:w-14'>
@@ -161,9 +162,9 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                             {user && <p className='text-[.7rem] font-bold font-serif mt-1 md:text-white md:font-roboto md:mt-3 md:ml-2 md:text-lg  '>{user.lastName + " " + user.firstName}</p>}
                         </li>
 
-                        <div  onClick={() => handleMenuClick("close")} className='relative'>
+                        <div className='relative'>
                             <li className='relative text-center'>
-                                <NavLink to="/cart" className={`${cart}  font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg`}>Cart</NavLink>
+                                <NavLink to="/cart" className={`${cart} h-12 font-bold block rounded-md p-2 text-center text-xl mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg`}>Cart</NavLink>
                                 {cart === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                             </li>
                             { cartCount > 0 && 
@@ -174,16 +175,16 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
 
                         { sideBarNavLinks.map( links => {
                             return (
-                                <li key={links.path + "KEY"} onClick={() => handleMenuClick("close")}  className='relative text-center'>
-                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}</NavLink>
+                                <li key={links.path + "KEY"}  className='relative text-center'>
+                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-md h-12 p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}g</NavLink>
                                     {links.style === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                                 </li>
                             )} )
                         }
             
-                        <li  onClick={() => handleMenuClick("close")} ><NavLink to ="/" onClick={handleLogOut} className='bg-red-500 hover:bg-red-800 text-white font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-red-500 md:px-0 md:text-lg'>Log Out</NavLink></li>
+                        <li ><NavLink to ="/" onClick={handleLogOut} className='bg-red-500 hover:bg-red-800 text-white font-bold block rounded-md text-xl pt p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-red-500 md:px-0 md:text-lg  xl:text-[.7rem]'>Log Out</NavLink></li>
                     </ul> ) :
-                    ( <> <ul  className='md:hidden md:justify-around md:mt-14 md:w-full' >
+                    ( <> <ul onClick={() => handleMenuClick("close")}  className='pb-48 md:hidden md:justify-around md:mt-14 md:w-full bg-red-40' >
 
                         <li className='mt-16 flex flex-wrap justify-center md:absolute md:right-3 md:h-24 md:px-2 md:-mt-10 md:flex-row text-center'>
                             <div className='flex align-middle justify-center pt-4 w-20 h-20 rounded-full bg-[#dddddd] border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-14 md:w-14 md:pt-1'>
@@ -192,20 +193,20 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                         </li>
 
                         <li onClick={() => handleMenuClick("close")} className='relative text-center' >
-                            <NavLink to="/about-us" className={`${aboutUs} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0  md:text-xl`}>About Us</NavLink>
+                            <NavLink to="/about-us" className={`${aboutUs} active:bg-green-600 h-12 font-bold block rounded-md p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0  md:text-xl`}>About Us</NavLink>
                             {aboutUs === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                         </li>
 
                         { sideBarNavLinks.map( links => {
                             return (
                                 <li key={links.text + "key"} onClick={() => handleMenuClick("close")}  className='relative text-center'>
-                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}</NavLink>
+                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 h-12 font-bold block rounded-md p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}k</NavLink>
                                     {links.style === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                                 </li>
                             )} )
                         }
                         
-                        <li onClick={() => handleMenuClick("close")} ><NavLink to="/sign-in " className='bg-purple-600 hover:bg-green-600 active:bg-green-600 text-white font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-green-600 md:px-0  md:text-xl'>Sign In</NavLink></li>
+                        <li onClick={() => handleMenuClick("close")} ><NavLink to="/sign-in " className='bg-purple-600 hover:bg-green-600 active:bg-green-600 text-white font-bold block h-12 rounded-md pt-2 text-xl p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-green-600 md:px-0  md:text-xl'>Sign In</NavLink></li>
                     </ul>
 
                     <ul className='hidden md:flex md:justify-around md:mt-14 md:w-full' >
@@ -224,7 +225,7 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                         { sideBarNavLinks.map( links => {
                             return (
                                 <li key={links.path} className='relative text-center'>
-                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}</NavLink>
+                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}h</NavLink>
                                     {links.style === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                                 </li>
                             )} )

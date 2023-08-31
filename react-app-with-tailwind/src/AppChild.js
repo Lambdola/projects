@@ -76,16 +76,14 @@ export default function AppChild({isSignIn, setIsSignIn}) {
  
 
   return (
-    <div className='relative selection:bg-violet-400
-
-
-    '>
+    <div className='relative selection:bg-violet-400 font-poppins xl:w-1/3 xl:mx-auto 2xl:w-1/6'>
       <div className=' md:w-full md:z-10'>
          <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
-         <p className='text-black'>The current time is {currentTime}.</p>
+         {/* <p className='text-black'>The current time is {currentTime}.</p> */}
          {/* <p className='text-black'>View: {view}</p> */}
       </div>
     
+
       <Routes>
         <Route path="/" element={<Home isSignIn={isSignIn} setIsSignIn={setIsSignIn} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} cartCount={cartCount} setCartItems={setCartItems} />} />
         <Route path="/services" element={<Services isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} rentalData={rentalData} setRentalData={setRentalData} />} />

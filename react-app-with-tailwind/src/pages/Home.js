@@ -7,6 +7,7 @@ import Gallery from '../components/Gallery';
 import BackToTop from '../components/BackToTop';
 import car2 from '../images/car2.jpg';
 import PopUp from '../components/PopUp';
+import BusinessHours from '../components/BusinessHours';
 import CartContent from '../components/CartContent';
 
 
@@ -67,33 +68,19 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
             <BackToTop />
             <div className='overflow-hidden relative mx-auto lg:p-2 lg:portrait:w-[80%] bg-red-4 xl:portrait:w-full '>
                 {/* Side-Bar */}
-                <div className='relative no-scrollbar md:landscape:w-2/3 md:landscape:mx-auto md:portrait:float-left md:portrait:w-[39%] md:h-3/4 md:overflow-scroll md:no-scrollbar md:portrait:fixed md:portrait:top-36 md:space-y-3 md:m-1
+                <div className='mt-3 relative no-scrollbar md:landscape:w-2/3 md:landscape:mx-auto md:portrait:float-left md:portrait:w-[39%] md:h-3/4 md:overflow-scroll md:no-scrollbar md:portrait:fixed md:portrait:top-36 md:space-y-3 md:m-1
                 md:landscape:mt-0
                 lg:portrait:w-[40%] lg:-top-3 lg:portrait:h-[98rem] lg:portrait:relative lg:portrait:space-y-20 lg:portrait:bg-fuchsia-200
                 lg:landscape:w-1/3 lg:landscape:float-left lg:landscape:h-auto
-                xl:landscape:flex xl:landscape:float-none xl:landscape:w-full xl:landscape:space-y-0 xl:landscape:mb-20
-                '>
-                    <div className='bg-purple-700 w-80 py-4 text-white font-semibold space-y-4 mx-auto rounded-xl text-center shadow md:w-full
-                    lg:portrait:h-[30%] lg:portrait:flex lg:portrait:flex-col lg:portrait:gap-4 lg:portrait:text-2xl
-                    xl:landscape:w-1/3 xl:landscape:text-3xl xl:rounded-none xl:relative
-                    '>
-                        <h2 className='text-lg mb-5 font-bold text-slate-900 lg:portrait:mb-0 lg:portrait:mt-10 lg:portrait:text-2xl xl:landscape:text-3xl xl:landscape:my-10 '>BUSINESS HOURS</h2>
-                        <div>
-                            <p className='underline'>MON - FRI</p>
-                            <p>8:00 AM - 6:00 PM</p>
-                        </div>
-                        <div>
-                            <p className='underline'>SAT</p>
-                            <p>8:00 AM - 4:00 PM</p>
-                        </div>
-                        <div>
-                            <p className='underline'>SUN</p>
-                            <p>CLOSED</p>
-                        </div>
-                    </div>
+                xl:landscape:block xl:landscape:float-none xl:landscape:w-full xl:landscape:space-y-0 xl:landscape:mb-20
 
-                    <div className='group relative w-auto m-1 mb-4 p-2 text-center overflow-hidden md:w-full md:m-0 md:p-0 lg:portrait:h-[30%]
-                    xl:landscape:w-1/3 xl:landscape:text-xl
+
+                '>
+                    <BusinessHours />
+                    
+
+                    <div className='mt-5 group relative w-auto m-1 mb-4 p-2 text-center overflow-hidden md:w-full md:m-0 md:p-0 lg:portrait:h-[30%]
+                    xl:landscape:w-full xl:landscape:text-xl
                     '>
                         <div className='md:w-full'>
                             <img src={car2} alt="Home Car." className='relative object-cover peer md:h-[30rem] md:w-full' />
@@ -113,7 +100,7 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                     </div>
 
                     <div className='hidden my-10 lg:block lg:portrait:h-[30%]
-                    xl:landscape:w-1/3 
+                    xl:hidden
                     '>
                         <Gallery />
                     </div>
@@ -123,31 +110,31 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                 <div className='md:landscape:w-2/3 md:landscape:mx-auto md:portrait:float-right md:portrait:w-[59%] md:mt-3
                 lg:portrait:-mt-3
                 lg:landscape:float-right lg:landscape:w-[66%] lg:landscape:-mt-2
-                xl:landscape:float-none xl:landscape:w-full
+                xl:landscape:float-none xl:landscape:w-full xl:portrait:w-full
                 '>
                     <QuickFind />
-                    <div className='my-10 lg:hidden '>
+                    <div className='my-10 lg:hidden xl:block '>
                         <Gallery />
                     </div>
 
-                    <div className='lg:hidden'>
-                    <div className='bg-slate-900 p-3  '>
-                        <h2 className='text-gray-900 font-bold text-center'>Why Us </h2>
-                        <div className='space-y-5 lg:flex lg:flex-wrap lg:justify-evenly lg:space-y-0 gap-1 xl:'>
-                            { whyUs.map(options => {
-                                return (
-                                    <div key={options.reason} className='text-center bg-slate-600 lg:w-[30%] lg:h-40'>
-                                        <div className='w-full h-40 overflow-scroll no-scrollbar bg-blue-400 lg:h-[80%] p-2 text-slate-100'>{options.text}</div>
-                                        <p className='text-orange-400 font-roboto p-1'>{options.reason}</p>
-                                    </div>
-                                );
-                            }) }
+                    <div className='space-y-5 mb-10 lg:hidden'>
+                        <div className='bg-slate-50 p-3  '>
+                            <h2 className='text-gray-900 text-2xl font-bold text-center m-3'>WHY US</h2>
+                            <div className='space-y-5 lg:flex lg:flex-wrap lg:justify-evenly lg:space-y-0 gap-1 xl:'>
+                                { whyUs.map(options => {
+                                    return (
+                                        <div key={options.reason} className='text-center lg:w-[30%] lg:h-40'>
+                                            <div className='w-full h-40 overflow-scroll no-scrollbar border-2 border-slate-400 rounded-md lg:h-[80%] p-2 text-gray-600 font-medium'>{options.text}</div>
+                                            <p className='text-[#c82b28] text-lg font-bold font-roboto p-1'>{options.reason}</p>
+                                        </div>
+                                    );
+                                }) }
+                            </div>
                         </div>
-                    </div>
-                
-                    <div className='m-1 w-auto h-42 text-center p-4 space-y-8 mb-4 md:text-2xl lg:absolute lg:right-0 lg:w-[30%]'>
-                        {secLinks.map((link =>  <h2 key={link.path}><NavLink to={link.path} className='block border-2 border-purple-800 px-24 py-2 font-bold text-violet-600 hover:text-white hover:bg-violet-900 lg:portrait:px-2' >{link.text}</NavLink></h2> ))}
-                    </div>
+                    
+                        <div className='m-1 w-auto h-42 text-center p-4 space-y-8 mb-4 md:text-2xl lg:absolute lg:right-0 lg:w-[30%]'>
+                            {secLinks.map((link =>  <h2 key={link.path}><NavLink to={link.path} className='block border-2 border-purple-800 px-24 py-2 font-bold text-violet-600 hover:text-white hover:bg-violet-900 lg:portrait:px-2' >{link.text}</NavLink></h2> ))}
+                        </div>
                     </div>
 
                     <div className='lg:hidden'>
@@ -161,13 +148,13 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                 </div>
                
             </div>
-            <div className='hidden shadow-xl border-4 lg:flex lg:justify-between lg:portrait:w-[80%] lg:portrait:mx-auto lg:bg-gray-100 lg:border-gray-900 xl:landscape:flex-row-reverse xl:landscape:mt-20'>
-                <div className='bg-slate-900 p-3 lg:w-[65%] lg:portrait:pt-5 xl:landscape:w-2/3 '>
+            <div className='hidden shadow-xl border-4 lg:flex lg:justify-between lg:portrait:w-[80%] lg:portrait:mx-auto lg:bg-gray-100 lg:border-gray-900 xl:landscape:flex-col xl:landscape:mt-20'>
+                <div className='bg-slate-900 p-3 lg:w-[65%] lg:portrait:pt-5 xl:landscape:w-full '>
                     <h2 className='text-gray-900 font-bold text-center'>Why Us </h2>
                     <div className='space-y-5  lg:flex lg:flex-wrap lg:justify-evenly lg:space-y-0 gap-1 xl:mt-4'>
                     { whyUs.map(options => {
                         return (
-                            <div key={options.reason} className='text-center bg-slate-600 lg:w-[30%] lg:h-40'>
+                            <div key={options.reason} className='text-center bg-slate-600 lg:w-[30%] lg:h-40 xl:w-full'>
                                 <div className='w-full h-40 overflow-scroll no-scrollbar bg-blue-400 lg:h-[80%] p-2 text-slate-100'>{options.text}</div>
                                 <p className='text-orange-400 font-roboto p-1'>{options.reason}</p>
                             </div>
@@ -176,7 +163,7 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                     </div>
                 </div>
             
-                <div className='m-1 w-auto h-42 text-center p-4 space-y-8 mb-4 md:text-2xl lg:w-[33%] lg:space-y-14 xl:landscape:w-1/3'>
+                <div className='m-1 w-auto h-42 text-center p-4 space-y-8 mb-4 md:text-2xl lg:w-[33%] lg:space-y-14 xl:landscape:w-full'>
                     {secLinks.map((link =>  <h2 key={link.path}><NavLink to={link.path} className='block border-2 border-purple-800 px-24 py-2 font-bold text-violet-600 hover:text-white hover:bg-violet-900 lg:portrait:px-2' >f{link.text}</NavLink></h2> ))}
                 </div>
             </div>
