@@ -38,13 +38,16 @@ export default function Footer() {
                 <div className='flex justify-evenly align-middle'>
                     { socialMediaLinks.map(items => {
                         return (
-                            <div key={items.title} className='w-8 h-8 rounded-full'>
-                                <NavLink to={items.link}><img src={items.title} className="w-full h-full" /></NavLink>
+                            <div key={items.title} className='group w-8 h-8 rounded-full relative'>
+                                <NavLink to={items.link}>
+                                    <img src={items.title} className="w-full h-full" />
+                                </NavLink>
+                                <div className="transition-all absolute -bottom-2 w-full group-hover:bg-orange-400 h-1"></div>
                             </div>
                         )
                     })}
                 </div>
-                <p className='text-slate-600'><span>©</span>2023 Trizent Autos. All rights reserved.</p>
+                <p className='text-slate-500'><span>©</span>2023 Trizent Autos. All rights reserved.</p>
             </div>
         </footer>
     )

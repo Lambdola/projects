@@ -7,10 +7,15 @@ import SignIn from './pages/SignIn';
 import Reviews from './pages/Reviews';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import ChatRoom from './pages/ChatRoom';
+import AdminChatRoom from './pages/AdminChatRoom'
 import Cart from './pages/Cart';
 import { useEffect, useState } from 'react';
 import NoRoute from './pages/NoRoute';
 import MakePayment from './pages/MakePayment';
+import io from 'socket.io-client';
+
+const socket = io.connect('http://localhost:4000');
 
 export default function AppChild({isSignIn, setIsSignIn}) {
   // const [isSignIn, setIsSignIn] = useState(false);
@@ -27,6 +32,7 @@ export default function AppChild({isSignIn, setIsSignIn}) {
     "pickUpDate" : "",
     "returnDate": ""
   });
+  
 
 
   
@@ -76,10 +82,10 @@ export default function AppChild({isSignIn, setIsSignIn}) {
  
 
   return (
-    <div className='relative selection:bg-violet-400 font-poppins xl:w-1/3 xl:mx-auto 2xl:w-1/6'>
+    <div className='overflow-hidden min-w-[50%] relative selection:bg-violet-400 font-poppins xl:w-1/3 xl:mx-auto 2xl:min-w-[35%] '>
       <div className=' md:w-full md:z-10'>
          <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
-         {/* <p className='text-black'>The current time is {currentTime}.</p> */}
+         <p className='text-black'>The current time is {currentTime}.</p>
          {/* <p className='text-black'>View: {view}</p> */}
       </div>
     
@@ -91,8 +97,10 @@ export default function AppChild({isSignIn, setIsSignIn}) {
         <Route path="/sign-in" element={<SignIn setIsSignIn={setIsSignIn} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} />} />
         <Route path="/reviews" element={<Reviews isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
         <Route path="/about-us" element={<AboutUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
-        <Route path="/contact-us" element={<ContactUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} />} />
+        <Route path="/contact-us" element={<ContactUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} socket={socket} />} />
         <Route path="/cart" element={<Cart isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} count={count} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} />} />
+        <Route path="/chat-room" element={<ChatRoom socket={socket} />} />
+        <Route path="/admin-chat-room" element={<AdminChatRoom socket={socket}  />} />
         <Route path="/make-payment" element={<MakePayment isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} totalPrice={totalPrice} />} />
         <Route path="*" element={<NoRoute />} />
       </Routes>

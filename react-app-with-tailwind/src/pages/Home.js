@@ -66,6 +66,11 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
         {/* {cartCount > 0 && <CartContent cartCount={cartCount} />} */}
         <div className="bg-white md:h-full md:overflow-scroll no-scrollbar ">
             <BackToTop />
+            <div className='text-center bg-red-40'>
+                <p className='text-slate-900 text-3xl font-extrabold font-poppins'>WELCOME TO </p>
+                <p className='text-purple-800 text-2xl font-bold'>TRIZENT AUTOS</p>
+                <p className='text-purple-400 font-bold text-sm'>... a safe haven for your car.</p>
+            </div>
             <div className='overflow-hidden relative mx-auto lg:p-2 lg:portrait:w-[80%] bg-red-4 xl:portrait:w-full '>
                 {/* Side-Bar */}
                 <div className='mt-3 relative no-scrollbar md:landscape:w-2/3 md:landscape:mx-auto md:portrait:float-left md:portrait:w-[39%] md:h-3/4 md:overflow-scroll md:no-scrollbar md:portrait:fixed md:portrait:top-36 md:space-y-3 md:m-1
@@ -76,10 +81,11 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
 
 
                 '>
-                    <BusinessHours />
-                    
-
-                    <div className='mt-5 group relative w-auto m-1 mb-4 p-2 text-center overflow-hidden md:w-full md:m-0 md:p-0 lg:portrait:h-[30%]
+                    <div className='w-full bg-yellow-40'>
+                         <BusinessHours />
+                    </div>
+                   
+                    <div className='mt-5 relative w-auto mb-4 text-center overflow-hidden md:w-full md:m-0 md:p-0 lg:portrait:h-[30%]
                     xl:landscape:w-full xl:landscape:text-xl
                     '>
                         <div className='md:w-full'>
@@ -93,9 +99,9 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                                 {["Sales", "Rentals", "Repairs"].map(services =>  <p key={services} className='border-2 border-purple-950 px-2 text-purple-900 font-bold '>{services}</p> ) }
                             </div>
                         </div>
-                        <div className='group-hover:bg-red-700 absolute w-full bottom-7 left-0 mx-auto text-center md:w-full md:bottom-2 md:p-2  '>
+                        <div className=' absolute w-full bottom-7 left-0 mx-auto text-center md:w-full md:bottom-2 md:p-2  '>
                             <h2 className='text-slate-200 text-[1.1rem] font-mono font-bold xl:text-[1.4rem] xl:mb-2'>WE WANT TO BE YOUR ONE FOR ALL !</h2>
-                            <ViewCatalogue />
+                            <ViewCatalogue bg="purple-900" text="slate-100" />
                         </div>
                     </div>
 
@@ -112,20 +118,23 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
                 lg:landscape:float-right lg:landscape:w-[66%] lg:landscape:-mt-2
                 xl:landscape:float-none xl:landscape:w-full xl:portrait:w-full
                 '>
-                    <QuickFind />
+                    <div className='mt-10 p-1'>
+                        <QuickFind />
+                    </div>
+                   
                     <div className='my-10 lg:hidden xl:block '>
                         <Gallery />
                     </div>
 
                     <div className='space-y-5 mb-10 lg:hidden'>
                         <div className='bg-slate-50 p-3  '>
-                            <h2 className='text-gray-900 text-2xl font-bold text-center m-3'>WHY US</h2>
+                            <h2 className='text-gray-900 text-3xl font-black text-center m-3'>WHY US</h2>
                             <div className='space-y-5 lg:flex lg:flex-wrap lg:justify-evenly lg:space-y-0 gap-1 xl:'>
                                 { whyUs.map(options => {
                                     return (
                                         <div key={options.reason} className='text-center lg:w-[30%] lg:h-40'>
-                                            <div className='w-full h-40 overflow-scroll no-scrollbar border-2 border-slate-400 rounded-md lg:h-[80%] p-2 text-gray-600 font-medium'>{options.text}</div>
-                                            <p className='text-[#c82b28] text-lg font-bold font-roboto p-1'>{options.reason}</p>
+                                            <div className='w-full h-40 overflow-scroll no-scrollbar border-2 border-slate-400 bg-gray-200 font-poppins lg:h-[80%] p-2 text-slate-700 font-medium'>{options.text}</div>
+                                            <p className='text-gray-950 text-lg font-bold font-roboto p-1'>{options.reason}</p>
                                         </div>
                                     );
                                 }) }
@@ -139,7 +148,7 @@ export default function Home({isSignIn, setCartItems, setIsSignIn, signInWelcome
 
                     <div className='lg:hidden'>
                        <div className='text-center p-2 mb-5 w-full md:mb-10 '>
-                            <ViewCatalogue />
+                            <ViewCatalogue bg="" text="gray-950" />
                         </div>
                         <div>
                             <Footer  />

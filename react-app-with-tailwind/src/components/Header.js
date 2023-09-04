@@ -9,19 +9,22 @@ import { ArrowDropUp } from '@mui/icons-material';
 import SignIn from '../pages/SignIn';
 import { Avatar } from '@mui/material';
 
+
 export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, setCartCount}) {
     const [logIn, setLogIn] = useState(false);
 
     let navigate = useNavigate();
 
-    let user;
+    let user = localStorage.getItem("user");
+    user = JSON.parse(user)
     useEffect(()=>{
         // alert("Header")
-        user = localStorage.getItem("user");
+        // user = localStorage.getItem("user");
         let test;
         try {
-          user = JSON.parse(user);
+        //   user = JSON.parse(user);
           test = user.loggedIn;
+        //   alert(`ghf ${user}`)
         } catch (error) {
           user = { "loggedIn": "false" };
         }
@@ -37,7 +40,7 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
     
 
     let url = window.location.href;
-    let style = "bg-purple-600 text-purple hover:bg-purple-900 text-white pt-2 text-xl xl:text-[.7rem]";
+    let style = "bg-purple-600 text-purple hover:bg-purple-900 text-white pt-3 text-xl xl:text-[.7rem]";
     let active = "border-4 border-purple-400 bg-white text-xl text-purple-500 hover:bg-purple-500 hover:border-purple-900 md:border-none  xl:text-[.7rem]";
 
     let cart, services, reviews, blog, aboutUs, contactUs;
@@ -104,13 +107,13 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
         <header className="relative top-0 w-auto p-2 bg-gray-900 m-1 flex align-middle mb-3 md:w-full md:h-[7.5rem] md:z-10 ">
             { logIn && (cartCount > 0 && <CartContent  cartCount={cartCount}/>)  } 
             {/* <BackToTop /> */}
-            <div className="inline-block py-2 md:flex md:absolute md:w-full md:z-30 ">
+            <div className="inline-block py-2 md:flex md:absolute md:w-ful md:z-40">
                 <NavLink to="/" ><img className="h-16 w-16" src={logo} alt="Logo." /></NavLink>
             </div>
             <div className='absolute right-4 top-8 '>
                 {/* handles hamburger icon toggle and its contents; when logged in or not */}
                 { logIn ? 
-                   (<ul className='relative bg-red-300 hidden '>
+                   (<ul className='relative bg-red-30 hidden '>
                         <li className='mt-16 flex flex-wrap justify-center xsm:lg:inline-block xsm:lg:mt-0 xsm:md:absolute xsm:md:right-0 xsm:md:-top-4 '>
                             <div className='w-20 h-20 rounded-full bg-gray-700 border-4 border-purple-800 overflow-hidden xsm:md:hover:border-white'>
                                 <img src={profilePic} alt="User" />
@@ -159,7 +162,8 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                             <div className='w-20 h-20 rounded-full bg-gray-700 border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-14 md:w-14'>
                                 <img src={profilePic} alt="User" />
                             </div>
-                            {user && <p className='text-[.7rem] font-bold font-serif mt-1 md:text-white md:font-roboto md:mt-3 md:ml-2 md:text-lg  '>{user.lastName + " " + user.firstName}</p>}
+                            {/* <p>{alert(user.email)}</p> */}
+                            {user.email && <p className='text-[.7rem] text-black font-bold font-serif mt-1 md:text-white md:font-roboto md:mt-3 md:ml-2 md:text-lg  '>{user.lastName + " " + user.firstName}</p>}
                         </li>
 
                         <div className='relative'>
@@ -176,11 +180,16 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                         { sideBarNavLinks.map( links => {
                             return (
                                 <li key={links.path + "KEY"}  className='relative text-center'>
-                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-md h-12 p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}g</NavLink>
+                                    <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-md h-12 p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}gh</NavLink>
                                     {links.style === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                                 </li>
                             )} )
                         }
+                        
+                        { user.email === process.env.REACT_APP_ADMIN_EMAIL &&  <li className='relative text-center'>
+                                    <NavLink to="/admin-chat-room" className={`bg-orange-600 text-purple hover:bg-purple-900 text-white pt-3 text-xl xl:text-[.7rem] active:bg-green-600 font-bold block rounded-md h-12 p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>CHAT ROOM</NavLink>
+                                    
+                                </li> }
             
                         <li ><NavLink to ="/" onClick={handleLogOut} className='bg-red-500 hover:bg-red-800 text-white font-bold block rounded-md text-xl pt p-2 text-center mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-red-500 md:px-0 md:text-lg  xl:text-[.7rem]'>Log Out</NavLink></li>
                     </ul> ) :
@@ -211,13 +220,13 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
 
                     <ul className='hidden md:flex md:justify-around md:mt-14 md:w-full' >
 
-                        <li className='mt-16 flex flex-wrap justify-center md:absolute md:right-3 md:h-24 md:px-2 md:-mt-10 md:flex-row text-center'>
+                        <li className='bg-yellow-400 mt-16 flex flex-wrap justify-center md:absolute md:right-3 md:h-2 md:px-2 md:-mt-10 md:flex-row text-center'>
                             <div className='flex align-middle justify-center pt-4 w-20 h-20 rounded-full bg-[#dddddd] border-4 border-purple-800 hover:border-white overflow-hidden text-center md:h-14 md:w-14 md:pt-1'>
                                 <Avatar />
                             </div>
                         </li>
 
-                        <li className='relative text-center' >
+                        <li className='relative text-center bg-red-30' >
                             <NavLink to="/about-us" className={`${aboutUs} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0  md:text-xl`}>About Us</NavLink>
                             {aboutUs === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                         </li>
@@ -226,12 +235,12 @@ export default function Header({isSignIn, setIsSignIn, cartItems, cartCount, set
                             return (
                                 <li key={links.path} className='relative text-center'>
                                     <NavLink to={`/${links.path}`} className={`${links.style} active:bg-green-600 font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-purple-500 md:px-0 md:text-lg `}>{links.text}h</NavLink>
-                                    {links.style === active && <div className='hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
+                                    {links.style === active && <div className='transition-all hidden md:block md:relative md:bottom-6'><ArrowDropUp sx={{fontSize:45, color:'whitesmoke' }} /></div> }
                                 </li>
                             )} )
                         }
                         
-                        <li><NavLink to="/sign-in " className='bg-purple-600 hover:bg-green-600 active:bg-green-600 text-white font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-green-600 md:px-0  md:text-xl'>Sign In</NavLink></li>
+                        <li><NavLink to="/sign-in " className='bg-purple-600 hover:bg-green-600 active:bg-green-600 text-white font-bold block rounded-xl p-2 text-center text-sm mt-3 md:bg-transparent md:hover:bg-transparent md:hover:text-green-600 md:px-0 md:text-lg xl:text-[.7rem]'>Sign In</NavLink></li>
                     </ul> 
                     </>
                      )

@@ -48,3 +48,21 @@ code {
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
   }
+
+  #chats p{
+    display: block;
+    float: right;
+    background-color: rgb(242, 171, 233);
+    padding: .5rem 1rem;
+    margin-right: .5rem;
+    border-radius: 10px;
+  }
+
+  #chats h2{
+    display: block;
+    float: left;
+    background-color: rgb(185, 223, 223);
+    padding: .5rem 1rem;
+    margin-left: .5rem;
+    border-radius: 10px;
+  }

@@ -10,9 +10,9 @@ import { purple } from '@mui/material/colors';
 export default function QuickFind() {
     return (
         <div className='w-full bg-gray-50 pt-4 pb-10 rounded-xl mx-auto text-center mb-4  '>
-            <p className='text-gray-900 font-roboto font-bold text-2xl mb-2 xl:text-4sxl '>QUICK FIND</p>
+            <p className='text-gray-900 font-roboto font-black text-2xl mb-2 xl:text-4sxl '>QUICK FIND</p>
             <div className='xl:flex xl:flex-col'>
-                <div className='bg-green-500 rounded-t-3xl px-5 py-6 pb-32 -mb-20 text-left space-y-5 xl:w-full '>
+                <div className='bg-yellow-400 rounded-t-3xl px-5 py-6 pb-32 -mb-20 text-left space-y-5 xl:w-full '>
                     <div className='flex flex-wrap flex-col'>
                         <div className="-mb-5 ml-6">
                             <PaidOutlinedIcon sx={{fontSize:50, color: purple[800]}} />
@@ -48,7 +48,7 @@ export default function QuickFind() {
                     </div>
                     <p><NavLink to="/services#rentals" className="block text-center text-lg font-roboto bg-violet-500 hover:bg-gray-700 xl:hover:bg-violet-900 active:bg-black text-white font-bold px-6 py-2 rounded md:text-3xl">RENTALS</NavLink></p>
                 </div>
-                <div className='bg-yellow-400 rounded-t-3xl rounded-b-xl px-5 py-6 text-left space-y-5 xl:w-full xl:mb-20'>
+                <div className='bg-green-400 rounded-t-3xl rounded-b-xl px-5 py-6 text-left space-y-5 xl:w-full xl:mb-20'>
                     <div className='flex flex-wrap flex-col '>
                         <div className="-mb-5 ml-6">
                             <HandymanOutlinedIcon sx={{fontSize:50, color: purple[800]}} />

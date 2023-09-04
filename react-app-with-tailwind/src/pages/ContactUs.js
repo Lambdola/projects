@@ -10,8 +10,13 @@ import mail from '../images/mail.png';
 import Footer from '../components/Footer';
 import { faq } from '../components/Car_Database';
 
-function ContactUs({isSignIn, setIsSignIn, cartItems}) {
+import { useNavigate } from 'react-router-dom';
+
+
+
+function ContactUs({isSignIn, setIsSignIn, cartItems, socket}) {
   const [faqFilter, setFaqFilter] = useState(faq);
+  let navigate = useNavigate();
   useEffect(()=> {
     window.scrollTo(0, 0);
     let user = localStorage.getItem("user");
@@ -38,13 +43,20 @@ function ContactUs({isSignIn, setIsSignIn, cartItems}) {
   function handleChange(e){
     let value = e.target.value;
     if (value !== "All Categories") {
-      alert(value)
+      // alert(value)
       let filter = faq.filter(items => items.category === value )
       setFaqFilter(filter);
       return ;
     }
     setFaqFilter(faq);
 
+  }
+
+  function joinRoom() {
+    // socket.emit('join_room', {"name": "Ola", "room": "WebSocket"});
+    setTimeout(() => {
+       navigate("/chat-room");
+    }, 1000);
   }
 
 
@@ -59,28 +71,28 @@ function ContactUs({isSignIn, setIsSignIn, cartItems}) {
           <div className='absolute'>
             Ola
           </div>
-          <img src={contactUs} />
+          <img src={contactUs} className='w-full' />
         </div>
 
         <div className='bg-stone-100 pb-28 pt-7'>
-          <div className='space-y-4 mb-16'>
+          <div className='space-y-4 mb-16 text-center bg-teal-40'>
             <p className='text-center font-bold text-gray-950 text-xl font-roboto'>How can we help you ?</p>
-            <div className='flex justify-center gap-3 align-middle'>
+            <button onClick={joinRoom} className='flex justify-center gap-3 align-middle text-center w-28 mx-auto px-1 py-2 rounded-lg active:bg-blue-400'>
               <div className='w-8 h-8'>
                 <img src={chat} />
               </div>
-              <p className='text-gray-800 text-2xl font-bold -mt-1'>Chat</p>
-            </div>
+              <p className='text-gray-800 text-2xl font-bold -mt-0'>Chat</p>
+            </button>
           </div>
           <div className='space-y-1'>
-            <div className='flex justify-center gap-3 align-middle'>
+            <button className='flex justify-center gap-3 align-middle w-36 mx-auto px-1 py-2 rounded-lg'>
               <div className='w-8 h-8'>
                 <img src={email} />
               </div>  
-              <p className='text-gray-800 text-xl font-bold mt-0'>Feedback</p>
-            </div>
+              <p className='text-gray-800 text-xl font-bold mt-[.1rem]'>Feedback</p>
+            </button>
             <div className='text-center w-2/3 h-16 mx-auto '>
-              <button className='w-full h-full border-2 border-purple-800 text-purple-900 font-bold rounded-lg'>Leave Feedback</button>
+              <button className='transition-all w-full h-full border-2 border-purple-800 text-purple-900 font-bold rounded-lg hover:bg-fuchsia-800 hover:text-white focus:bg-blue-400'>Leave Feedback</button>
             </div>
           </div>
         </div>
@@ -95,7 +107,7 @@ function ContactUs({isSignIn, setIsSignIn, cartItems}) {
             <p className='text-2xl font-bold text-gray-900'>Frequently Asked Questions</p>
             <p className='text-xl font-medium text-gray-900'>Check out our most popular questions, or reach out anytime by phone, chat, or feedback.</p>
             <div className='w-2/3 mx-auto h-16'>
-              <button onClick={scroll} className='w-full h-full bg-fuchsia-800 text-white rounded-lg font-bold'>See FAQs</button>
+              <button onClick={scroll} className='w-full h-full bg-fuchsia-800 text-white rounded-lg font-bold focus:bg-blue-400'>See FAQs</button>
             </div>
           </div>
           
@@ -176,7 +188,7 @@ function ContactUs({isSignIn, setIsSignIn, cartItems}) {
         </div>
 
         <div id="FAQ" className='px-7 mt-10'>
-          <div className='flex gap-2 mb-3'>
+          <div className='flex gap-2 mb-3 mt-5'>
             <img src={bulb} className='h-7 w-7' />
             <p className='font-bold text-lg text-gray-950'>Frequently Asked Questions</p>
           </div>
@@ -207,10 +219,7 @@ function ContactUs({isSignIn, setIsSignIn, cartItems}) {
         </div>
 
         <Footer />
-        
-        
-        
-        <p>{JSON.stringify(cartItems)}</p>
+
       </div>
         
     </div>

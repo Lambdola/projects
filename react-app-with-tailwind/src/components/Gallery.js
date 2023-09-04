@@ -1,4 +1,5 @@
 import { ArrowBackIos, ArrowForwardIos, ArrowLeft } from '@mui/icons-material';
+import { orange, purple } from '@mui/material/colors';
 import React, {useState} from 'react';
 
 function Gallery() {
@@ -56,8 +57,8 @@ function Gallery() {
           <div>
             <div id="gallery" onClick={(e) => {handleClick('Forward')}} className='relative w-[21rem] h-56 mx-auto md:w-full md:p-2 md:h-80 '>
               <div className='absolute w-full h-20 bg-red-20 top-1/3 flex justify-between pt-5 px-2'>
-                <span onClick={(e) => { e.stopPropagation(); handleClick('Back')}}> <ArrowBackIos sx={{fontSize: 40}} /> </span>
-                <span onClick={(e) => {e.stopPropagation(); handleClick('Forward')}}> <ArrowForwardIos  sx={{fontSize: 40}} /> </span>
+                <span onClick={(e) => { e.stopPropagation(); handleClick('Back')}}> <ArrowBackIos sx={{fontSize: 40, color:orange[400]}} /> </span>
+                <span onClick={(e) => {e.stopPropagation(); handleClick('Forward')}}> <ArrowForwardIos  sx={{fontSize: 40, color:orange[400] }} /> </span>
               </div>
               <img key={GalleryData[id].url} src={GalleryData[id].url} alt={GalleryData[id].text} className='w-[21rem] h-full border-4 bg-purple-500 rounded-xl mx-auto md:w-full' />
             </div>

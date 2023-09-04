@@ -4,12 +4,12 @@ import sqlite3
 import time
 
 
-app = Flask(__name__, static_folder = '../build', static_url_path ='/' )
+app = Flask(__name__ )
 TABLE_1 = "user_details"
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return "Index Page"
 
 
 @app.route('/api')
@@ -69,9 +69,7 @@ def api_logIn():
             return "No Matching Data"
     else:
         app.logger.info("No JSON")
-        return 'Content-Type not supported!'
-
-
+        return 'Content-TypeNOT supported!'
 
 
 

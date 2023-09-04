@@ -46,9 +46,10 @@ function AboutUs({ isSignIn, setIsSignIn}) {
     <div className='border-2 border-black  m-2'></div>
 
     {/* Services Icon */}
-    <div className='w-full  absolute -z-10 blur-sm'>
+    <div className='w-full h-48 absolute -z-10 blur-sm'>
       <img src="https://images.pexels.com/photos/17883975/pexels-photo-17883975/free-photo-of-steering-wheel-in-luxury-car.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Background" className='h-full w-full object-cover' />
     </div>
+    
     <div className='flex justify-evenly '>
       <div className='flex flex-wrap flex-col page-transition'>
         <div className="-mb-2 ml-1 p-2">
@@ -93,8 +94,8 @@ function AboutUs({ isSignIn, setIsSignIn}) {
           <h2 className='text-slate-100 font-bold text-lg'>Our Story</h2>
           <p className='text-slate-200'>Our story is one of visionaries coming together to create something extraordinary. With a deep understanding of the automotive industry and a desire to redefine the car-owner experience, we embarked on a mission to provide more than just services but to provide a lifestyle, a sense of freedom, a circle of trust and a bond between driver and machine.</p>
         </div>
-        <div className='w-1/3 '>
-          <img src="https://images.pexels.com/photos/11154021/pexels-photo-11154021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Our Story" className='h-full object-cover' />
+        <div className='w-1/3 md:h-52 '>
+          <img src="https://images.pexels.com/photos/11154021/pexels-photo-11154021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Our Story" className='h-full w-full object-cover' />
         </div>
       </div>
 
@@ -103,8 +104,8 @@ function AboutUs({ isSignIn, setIsSignIn}) {
           <h2 className='text-slate-100 font-bold text-lg'>Our Goal</h2>
           <p className='text-slate-200'>At Trizent Autos, our goal is clear: to redefine how you experience automobiles services. We're not just in the business of selling a particular car service; we're in the business of creating journeys, sparking connections, and delivering excellence at every turn on every and any of your car needs and wants.</p>
         </div>
-        <div className='w-1/3'>
-          <img src="https://images.pexels.com/photos/4806437/pexels-photo-4806437.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Our Goal" className='h-full object-cover' />
+        <div className='w-1/3 md:h-52  '>
+          <img src="https://images.pexels.com/photos/4806437/pexels-photo-4806437.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Our Goal" className='h-full w-full object-cover' />
         </div>
 
       </div>
@@ -114,8 +115,8 @@ function AboutUs({ isSignIn, setIsSignIn}) {
           <h2 className='text-slate-100 font-bold text-lg'>How We Get Things Done</h2>
           <p className='text-slate-200'>Every journey begins with understanding. When you choose Trizent Autos, we take the time to listen to your preferences, requirements, needs and aspirations. Whether you're buying or seeking a specific make and model, renting or looking for the perfect car for your use, looking for a qualified place to do your repairs or need guidance on the perfect fit for your car lifestyle, our team is here to ensure we're on the same page.</p>
         </div>
-        <div className='w-1/3 '>
-          <img src="https://images.pexels.com/photos/38271/ipad-map-tablet-internet-38271.jpeg?auto=compress&cs=tinysrgb&w=300" alt="How we operate" className='h-full object-cover' />
+        <div className='w-1/3 md:h-52  '>
+          <img src="https://images.pexels.com/photos/38271/ipad-map-tablet-internet-38271.jpeg?auto=compress&cs=tinysrgb&w=300" alt="How we operate" className='h-full w-full object-cover' />
         </div>
         
       </div>
@@ -130,7 +131,7 @@ function AboutUs({ isSignIn, setIsSignIn}) {
     </div>
 
     <div className='w-full bg-gray-950  mb-10'>
-      <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=300" alt="team" className='w-full' />
+      <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=300" alt="team" className='w-full md:h-64 object-cover' />
       <div className='p-2 text-slate-200 text-lg'>
         At Trizent Autos, we work as a team to bring our customers full satisfaction. We have a wide range of teams to attend to your needs be it on sales, repairs or rentals.
         We boast of having an excellent team as one of the perks and reasons of why you should be working with us.
@@ -142,7 +143,7 @@ function AboutUs({ isSignIn, setIsSignIn}) {
     <div>
       <div className='px-4 py-2 space-y-2 mb-'>
         <h3 className='text-2xl text-gray-950 font-bold'>Our Teams</h3>
-        <div className='flex justify-start gap-2 text-lg'>
+        <div className='flex justify-evenly gap-2 text-md'>
           <button onClick={() => handleClick("sales")} className={`${team === "sales" ? "border-purple-800 font-bold text-gray-900" : "border-transparent" } text-gray-800 font-semibold border-b-4 `}>Sales Team</button>
           <button onClick={() => handleClick("rentals")} className={`${team === "rentals" ? "border-purple-800 font-bold text-gray-900" : "border-transparent" } text-gray-800 font-semibold border-b-4 `} >Rentals Team</button>
           <button onClick={() => handleClick("repairs")} className={`${team === "repairs" ? "border-purple-800 font-bold text-gray-900" : "border-transparent" } text-gray-800 font-semibold border-b-4 `}>Repairs Team</button>

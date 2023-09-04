@@ -28,6 +28,9 @@ function NewMember({handleLogInDisplay, handleSubmit, details, handleDetailsChan
       } else{
         setShow("hidden");
         handleSubmit();
+        setTimeout(() => {
+          navigate("/")
+        }, 1000);
       }
     } else{
       setShow("hidden");
