@@ -11,7 +11,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import BackToTop from '../components/BackToTop';
 
 
-function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, setCount, rentalData}) {
+function Sales({data, filter, handleFilterChange, handleFilterSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, setCount, rentalData}) {
 	
 	return (
 		<> 
@@ -19,11 +19,11 @@ function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSa
 				!salesInfo ? 
 					<>
 						<div className='p-1'>
-							<Filter filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} />
+							<Filter filter={filter} handleFilterChange={handleFilterChange} handleFilterSubmit={handleFilterSubmit} />
 						</div>
 						<div className='flex flex-wrap text-center justify-center space-y-5 mt-10'>
 							<ul className='bg-slate-100 md:flex md:flex-row md:justify-between md:flex-wrap md:w-full md:p-3'>
-								{ data === "No Results Found" ? <h2 className='font-bold text-3xl'>No Results Found</h2> : (data.map((item) => {
+								{ data === "No Results Found Matching This Filter" ? <h2 className='font-bold text-3xl'>No Results Found Matching This Filter</h2> : (data.map((item) => {
 									return (
 										<SalesItem key={item.objectId} item={item} image={car1} setSalesInfo={setSalesInfo} />
 									)
@@ -41,18 +41,18 @@ function Sales({data, filter, handleFilterChange, handleSubmit, salesInfo, setSa
 	)
 }
 
-function Rentals({data, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, rentalData, setRentalData}) {
+function Rentals({data, filter, handleFilterChange, handleFilterSubmit, salesInfo, setSalesInfo, setCartItems, cartItems, rentalData, setRentalData}) {
 	return (
 		<>
 			{
 				!salesInfo ? 
 					<>
 						<div className='p-1'>
-							<Filter filter={filter} handleFilterChange={handleFilterChange} handleSubmit={handleSubmit} />
+							<Filter filter={filter} handleFilterChange={handleFilterChange} handleFilterSubmit={handleFilterSubmit} />
 						</div>
 						<div className='flex flex-wrap text-center justify-center space-y-5 mt-10'>
 							<ul className='bg-slate-100 md:flex md:flex-row md:justify-between md:flex-wrap md:w-full md:p-3'>
-								{ data === "No Results Found" ? <h2 className='font-bold text-3xl'>No Results Found</h2> : (data.map((item) => {
+								{ data === "No Results Found Matching This Filter" ? <h2 className='font-bold text-3xl'>No Results Found Matching This Filter</h2> : (data.map((item) => {
 									return (
 										<RentalItem key={item.objectId} item={item} image={car1} setSalesInfo={setSalesInfo} />
 									)
@@ -242,14 +242,14 @@ function Repairs({repairs_database, setCartItems, cartItems, repairService, setR
 	)
 }
 
-function Content({stat, data, repairs_database, filter, handleFilterChange, handleSubmit, salesInfo, setSalesInfo, setCartItems, cartItems,  repairService, setRepairService, setCount, rentalData, setRentalData }) {
+function Content({stat, data, repairs_database, filter, handleFilterChange, handleFilterSubmit, salesInfo, setSalesInfo, setCartItems, cartItems,  repairService, setRepairService, setCount, rentalData, setRentalData }) {
 	useEffect(()=>{window.scrollTo(0, 0);},[]);
 	if (stat === "sales") {
 		return < Sales 
 				 data={data} 
 				 filter={filter} 
 				 handleFilterChange={handleFilterChange} 
-				 handleSubmit={handleSubmit} 
+				 handleFilterSubmit={handleFilterSubmit} 
 				 salesInfo={salesInfo} 
 				 setSalesInfo={setSalesInfo} 
 				 setCartItems={setCartItems} 
@@ -262,7 +262,7 @@ function Content({stat, data, repairs_database, filter, handleFilterChange, hand
 				data={data} 
 				filter={filter} 
 				handleFilterChange={handleFilterChange} 
-				handleSubmit={handleSubmit} 
+				handleFilterSubmit={handleFilterSubmit} 
 				salesInfo={salesInfo} 
 				setSalesInfo={setSalesInfo} 
 				setCartItems={setCartItems} 
@@ -347,7 +347,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 	}
 
 
-	function handleSubmit(e) {
+	function handleFilterSubmit(e) {
 		e.preventDefault();
 		let newData = [...car_database];
 		let freshData = [];
@@ -355,21 +355,23 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 		for (let key in filter) {
 			if (filter[key].length > 0) {
 				for (let item of newData) {
-					if ((filter[key].length > 0) && (item[key].toString() === filter[key])) { freshData.push(item) };
+					if ((filter[key].length > 0) && (item[key].toString().toLowerCase() === filter[key].toLowerCase())) { 
+						freshData.push(item) 
+					};
 				}
 				newData = [...freshData];
 				freshData = [];
 			}
 		}
 		if(newData.length === 0) {
-			setData("No Results Found");
+			setData("No Results Found Matching This Filter");
 		} else {
 			setData(newData);
 		}
 		
 	}
 	return (
-	<div className='page-transition'>
+	<div className='page-transition md:mt-32'>
 		<div className='md:relative md:top-3'>
 			<h1 className='text-center text-xl font-bold md:text-3xl'>SERVICES</h1>
 			<div className='border-2 border-black m-2' ></div>
@@ -388,7 +390,7 @@ export default function Services({isSignIn, setIsSignIn, setCartItems, cartItems
 					repairs_database={repairs_database} 
 					filter={filter} 
 					handleFilterChange={handleFilterChange} 
-					handleSubmit={handleSubmit} 
+					handleFilterSubmit={handleFilterSubmit} 
 					salesInfo={salesInfo} 
 					setSalesInfo={setSalesInfo} 
 					setCartItems={setCartItems} 

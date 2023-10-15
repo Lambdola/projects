@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import cat from '../images/cat.jpg';
 import BackToTop from '../components/BackToTop';
 
-function Reviews({isSignIn, setIsSignIn}) {
+function Reviews({isSignIn, setIsSignIn, reviews}) {
     useEffect(()=> {
         window.scrollTo(0, 0);
         let user = localStorage.getItem("user");
@@ -19,15 +19,8 @@ function Reviews({isSignIn, setIsSignIn}) {
         }
     },[]);
 
-    const reviews = [
-        { "name": "John Doe", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
-        { "name": "John Doer", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
-        { "name": "John Does", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
-        { "name": "John Do", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
-        { "name": "John Did", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
-    ]
-  return (
-    <div className='page-transition'>
+    return (
+    <div className='page-transition md:mt-32'>
         <BackToTop />
         <h1 className='font-bold text-xl text-center'>REVIEWS</h1>
         <div className='border-2 border-black m-2'></div>
@@ -48,7 +41,7 @@ function Reviews({isSignIn, setIsSignIn}) {
             })}
         </div>
     </div>
-  )
+    )
 }
 
 export default Reviews;

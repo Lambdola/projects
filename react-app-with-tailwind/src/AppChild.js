@@ -19,6 +19,13 @@ const socket = io.connect('http://localhost:4000');
 
 export default function AppChild({isSignIn, setIsSignIn}) {
   // const [isSignIn, setIsSignIn] = useState(false);
+  const [reviews, setReviews] = useState( [
+    { "name": "John Doe", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
+    { "name": "John Doer", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
+    { "name": "John Does", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
+    { "name": "John Do", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
+    { "name": "John Did", "title": "A Single Dad and a Ford User", "comment": "The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. If you cannot provide an href, but still need the element to resemble a link, use a button and change it with appropriate styles." },
+  ]);
   const [currentTime, setCurrentTime] = useState(0);
   const [view, setView] = useState("")
   const [cartItems, setCartItems] = useState([]);
@@ -82,7 +89,7 @@ export default function AppChild({isSignIn, setIsSignIn}) {
  
 
   return (
-    <div className='overflow-hidden min-w-[50%] relative selection:bg-violet-400 font-poppins xl:w-1/3 xl:mx-auto 2xl:min-w-[35%] '>
+    <div className='overflow-hidden min-w-[50%] relative selection:bg-violet-400 font-poppins xl:w-2/3 xl:mx-auto 2xl:min-w-[35%] '>
       <div className=' md:w-full md:z-10'>
          <Header isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} cartCount={cartCount} setCartCount={setCartCount} />
          <p className='text-black'>The current time is {currentTime}.</p>
@@ -95,11 +102,11 @@ export default function AppChild({isSignIn, setIsSignIn}) {
         <Route path="/services" element={<Services isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} setCount={setCount} rentalData={rentalData} setRentalData={setRentalData} />} />
         <Route path="/blog" element={<Blog isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
         <Route path="/sign-in" element={<SignIn setIsSignIn={setIsSignIn} signInWelcome={signInWelcome} setSignInWelcome={setSignInWelcome} />} />
-        <Route path="/reviews" element={<Reviews isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
+        <Route path="/reviews" element={<Reviews isSignIn={isSignIn} setIsSignIn={setIsSignIn} reviews={reviews} />} />
         <Route path="/about-us" element={<AboutUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} />} />
-        <Route path="/contact-us" element={<ContactUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} socket={socket} />} />
+        <Route path="/contact-us" element={<ContactUs isSignIn={isSignIn} setIsSignIn={setIsSignIn} cartItems={cartItems} socket={socket} reviews={reviews} setReviews={setReviews} />} />
         <Route path="/cart" element={<Cart isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} cartItems={cartItems} count={count} setCount={setCount} cartCount={cartCount} totalPrice={totalPrice} setTotalPrice={setTotalPrice} />} />
-        <Route path="/chat-room" element={<ChatRoom socket={socket} />} />
+        <Route path="/chat-room" element={<ChatRoom socket={socket}  />} />
         <Route path="/admin-chat-room" element={<AdminChatRoom socket={socket}  />} />
         <Route path="/make-payment" element={<MakePayment isSignIn={isSignIn} setIsSignIn={setIsSignIn} setCartItems={setCartItems} totalPrice={totalPrice} />} />
         <Route path="*" element={<NoRoute />} />

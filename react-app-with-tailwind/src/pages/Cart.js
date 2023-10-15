@@ -5,6 +5,7 @@ import RemovePrompt from '../components/RemovePrompt';
 import BackToTop from '../components/BackToTop';
 import { useNavigate } from 'react-router-dom';
 import { toMoneyString } from '../toMoneyString';
+import ViewCatalogue from '../components/ViewCatalogue';
 
 function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, setTotalPrice}) {
     const [ removePrompt, setRemovePrompt ] = useState("hide");
@@ -104,7 +105,7 @@ function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, 
     }
    
     return (
-    <div className='page-transition'>
+    <div className='page-transition md:mt-32'>
         { removePrompt === "show" && <RemovePrompt setRemovePrompt={setRemovePrompt} cartItems={cartItems} setCartItems={setCartItems} repairItem={repairItem} setRepairItem={setRepairItem} tag="Repairs" /> }
         <BackToTop />
         <div className='md:relative md:top-3'>
@@ -148,8 +149,14 @@ function Cart({ setCartItems, cartItems, count, setCount, cartCount,totalPrice, 
                         );
                     }
                 } )
-                 : 
-                <h2 className='text-black text-4xl font-bold text-center font-roboto'>No Items Yet</h2>
+                 :
+                 <div>
+                    <h2 className='text-black text-4xl font-bold text-center font-roboto'>No Items Yet</h2>
+                    <div className='text-center p-8'>
+                        <ViewCatalogue text="slate-700" />
+                    </div>
+                 </div>
+                
             }
             <div className='mt-5 mb-20'>
                 {totalPrice > 0 && <p className='w-80 mx-auto bg-green-100 rounded p-1 text-center text-green-600 font-medium text-lg md:text-3xl'>Total: ${toMoneyString(totalPrice.toString())}</p>}

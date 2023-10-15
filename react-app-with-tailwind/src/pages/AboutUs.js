@@ -40,7 +40,7 @@ function AboutUs({ isSignIn, setIsSignIn}) {
   }
 
   return (
-   <div className=''>
+   <div className='md:mt-32'>
     <BackToTop />
     <h1 className='font-bold text-xl text-center'>ABOUT US</h1>
     <div className='border-2 border-black  m-2'></div>

@@ -162,7 +162,7 @@ function SalesItemInfo({salesInfo, car1, setCartItems, cartItems, tag}) {
             </div>
             <div className='w-40 mx-auto text-center mt-5 md:w-full md:p-3 md:text-2xl'>
                 { (tag === "Sales") ? 
-                    <button name="sales" onClick={addToCart} className='text-white font-bold bg-purple-700 p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600 md:w-full'>PURCHASE CAR</button>
+                    <button name="sales" onClick={addToCart} className='text-white font-bold bg-purple-700 p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600 md:w-full'>BUY CAR</button>
                     : <button name="rentals" onClick={addToCart} className='text-white font-bold bg-purple-700 p-3 text-lg rounded-xl hover:bg-purple-900 active:bg-green-600 md:w-full'>RENT CAR</button>
                 }
             </div>

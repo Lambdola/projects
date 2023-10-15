@@ -3,9 +3,7 @@ import React from 'react';
 
 function BusinessHours() {
   return (
-    <div className='relative z-20 page-transition bg-red-40 py-6'>
-        {/* <div className='bg-purple-600 h-32 w-72 absolute left-2 -bottom-3 -z-10'></div>
-        <div className='bg-purple-600 h-32 w-72 absolute right-2 -top-4 -z-10'></div> */}
+    <div className='relative z-20 lg:z-0 page-transition bg-red-40 py-6'>
         <div className='relative bg-slate-50 w-80 py-4 text-slate-700 font-poppins font-semibold space-y-4 mx-auto rounded-xl text-center shadow-lg md:w-full
         lg:portrait:h-[30%] lg:portrait:flex lg:portrait:flex-col lg:portrait:gap-4 lg:portrait:text-2xl
         xl:landscape:w-full xl:landscape:text-3xl xl:rounded-none xl:relative xl:portrait:bg-red-200
