@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:4000',
+      target: 'https://trizent-autos-server.vercel.app/',
       changeOrigin: true,
     })
   );
