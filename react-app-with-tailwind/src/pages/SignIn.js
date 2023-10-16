@@ -7,7 +7,13 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
   let navigate = useNavigate();
   const [show, setShow] = useState("hidden");
   // alert("kl")
-  // alert(baseUrl)
+
+  let baseUrl;
+  if (env === "development") {
+    baseUrl = "http://localhost:4000"
+  } else {
+    baseUrl = "https://trizent-autos-server.vercel.app"
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,7 +26,7 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
 
     if ((details.email === details.confirmEmail) && (details.password === details.confirmPassword)) {
       try {
-        var response = await fetch("/api/sign-in", {
+        var response = await fetch(`${baseUrl}/api/sign-in`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...param, "password": hash(details.password), "confirmPassword": hash(details.confirmPassword), "loggedIn": "false" })
@@ -205,6 +211,12 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
     window.scrollTo(0, 0);
   }, []);
 
+  let baseUrl;
+  if (env === "development") {
+    baseUrl = "http://localhost:4000"
+  } else {
+    baseUrl = "https://trizent-autos-server.vercel.app"
+  }
 
   function handleLogInDisplay(e) {
     if (e.target.name === "logIn") {
@@ -263,7 +275,7 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
     e.preventDefault();
     setEnable("no");
     try {
-      const response = await fetch("/api/log-in", {
+      const response = await fetch(`${baseUrl}/api/log-in`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...userLogInDetails, "password": hash(userLogInDetails.password) })
@@ -278,7 +290,7 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
         setHasAccount("no");
         setEnable("yes");
         return;
-      } else if ( data.message === "Error Connecting Database" ) {
+      } else if (data.message === "Error Connecting Database") {
         setErrorMessage("An Error occured. Please try again");
         setHasAccount("no");
         setEnable("yes");
@@ -291,7 +303,7 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
         setIsSignIn(true);
         setSignInWelcome("show");
       }
-     
+
 
     } catch (error) {
       alert(`Error: ${error.message}`)
