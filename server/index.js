@@ -78,7 +78,7 @@ app.get("/api/check", async(req, res) => {
     res.status(500).send("Error Connecting")
   }
  
-})
+});
 app.post('/api/log-in', async (req, res) => {
   try {
     console.log("############################")
