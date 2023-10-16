@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, redirect, useNavigate } from 'react-router-dom';
-
+import { env } from '../config';
 
 function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsChange, status, enable, hash, errorMessage, setErrorMessage }) {
   const [logInBtnState, setLogInBtnState] = useState(true)
   let navigate = useNavigate();
   const [show, setShow] = useState("hidden");
+  // alert("kl")
+  // alert(baseUrl)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,6 +28,7 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
         const data = await response.json();
         // alert(JSON.stringify(data))
         if (data.message === "Email Already Exists") {
+          window.scrollTo(0, 0);
           setErrorMessage("This email already exists ");
           setShow("visible");
           setLogInBtnState(true);
@@ -34,6 +37,7 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
           setShow("hidden");
           setLogInBtnState(true);
           handleSubmit();
+          navigate("/");
         } else {
           window.scrollTo(0, 0);
           setErrorMessage("An Error occured. Please try again");

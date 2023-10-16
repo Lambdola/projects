@@ -14,6 +14,12 @@ set("strictQuery", false);
 app.use(cors()); // Add cors middleware
 app.use(express.json());
 
+let baseUrl;
+if (process.env.NODE_ENV === "development") {
+  baseUrl = "http://localhost:3000"
+} else {
+  baseUrl = "https://trizent-auto.vercel.app"
+}
 
 main().catch((err) => console.log(`MongoDB Error: ${err}`));
 async function main() {
@@ -25,10 +31,12 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://trizent-auto.vercel.app',
+    origin: `${baseUrl}`,
     methods: ['GET', 'POST'],
   },
 });
+
+console.log(process.env.NODE_ENV)
 
 app.get('/', (req, res) => {
   res.status(200).send("Hello Ola");

@@ -14,8 +14,16 @@ import { useEffect, useState } from 'react';
 import NoRoute from './pages/NoRoute';
 import MakePayment from './pages/MakePayment';
 import io from 'socket.io-client';
+import { env } from './config.js';
 
-const socket = io.connect('http://localhost:4000');
+let baseUrl;
+if (env === "development") {
+  baseUrl = "http://localhost:4000"
+} else {
+  baseUrl = "https://trizent-autos-server.vercel.app/"
+}
+
+const socket = io.connect(`${baseUrl}`);
 
 export default function AppChild({isSignIn, setIsSignIn}) {
   // const [isSignIn, setIsSignIn] = useState(false);
