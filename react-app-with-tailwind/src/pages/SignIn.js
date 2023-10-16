@@ -26,7 +26,8 @@ function NewMember({ handleLogInDisplay, handleSubmit, details, handleDetailsCha
 
     if ((details.email === details.confirmEmail) && (details.password === details.confirmPassword)) {
       try {
-        var response = await fetch(`${baseUrl}/api/sign-in`, {
+        let url = baseUrl + "/api/sign-in"
+        var response = await fetch(url, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...param, "password": hash(details.password), "confirmPassword": hash(details.confirmPassword), "loggedIn": "false" })
@@ -275,7 +276,8 @@ function SignIn({ setIsSignIn, signInWelcome, setSignInWelcome }) {
     e.preventDefault();
     setEnable("no");
     try {
-      const response = await fetch(`${baseUrl}/api/log-in`, {
+      let url = baseUrl + "/api/log-in";
+      const response = await fetch(url, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...userLogInDetails, "password": hash(userLogInDetails.password) })
